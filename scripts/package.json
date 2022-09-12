@@ -1,0 +1,11 @@
+{
+  "name": "scripts",
+  "version": "0.0.0",
+  "scripts": {
+    "monitor": "npx ts-node ./hackathon/hackathon.ts"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "ts-node": "^10.9.1"
+  }
+}
