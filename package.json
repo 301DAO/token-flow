@@ -13,9 +13,15 @@
     "dev": "turbo run dev --parallel",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "deploy": "turbo run deploy",
+    "invoke": "turbo run invoke"
   },
   "devDependencies": {
     "turbo": "^1.4.6"
+  },
+  "engines": {
+    "pnpm": ">=7.0.0",
+    "node": ">=16.0.0"
   }
 }

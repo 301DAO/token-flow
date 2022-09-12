@@ -1,0 +1,20 @@
+{
+  "name": "serverless-rule-engine",
+  "version": "1.0.0",
+  "description": "Example of creating a function that runs as a cron job using the serverless `schedule` event",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "deploy": "serverless deploy",
+    "invoke": "serverless invoke local -f rule_engine"
+  },
+  "devDependencies": {
+    "esbuild": "^0.15.7",
+    "eslint-config-custom": "workspace:*",
+    "serverless-esbuild": "^1.32.8",
+    "serverless-offline": "^10.0.2",
+    "serverless-plugin-typescript": "^2.1.2",
+    "tsconfig": "workspace:*",
+    "typescript": "^4.8.3"
+  }
+}

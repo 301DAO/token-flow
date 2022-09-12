@@ -18,6 +18,15 @@
     },
     "clean": {
       "cache": false
+    },
+    "deploy": {
+      "dependsOn": ["^deploy"],
+      "cache": false
+    },
+    "invoke": {
+      "cache": false,
+      "outputs": [".build/**"],
+      "dependsOn": ["^invoke"]
     }
   }
 }
