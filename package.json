@@ -14,8 +14,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "deploy": "turbo run deploy",
-    "invoke": "turbo run invoke"
+    "deploy": "turbo run deploy"
   },
   "devDependencies": {
     "turbo": "^1.4.6"
