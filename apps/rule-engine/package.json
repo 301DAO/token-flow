@@ -1,0 +1,17 @@
+{
+  "name": "rule-engine",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "tsc --build",
+    "start": "node .dist/index.js",
+    "dev": "tsc -w & nodemon -q -w .dist .dist/index.js",
+    "clean": "rm -rf .dist"
+  },
+  "type": "module",
+  "devDependencies": {
+    "eslint-config-custom": "workspace:*",
+    "nodemon": "^2.0.19",
+    "tsconfig": "workspace:*",
+    "typescript": "4.8.3"
+  }
+}

@@ -16,10 +16,7 @@ coverage
 out/
 build
 
-# serverless
-.build
-.esbuild
-.serverless
+.dist
 
 # misc
 .DS_Store
