@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 // Credits to https://github.com/adrianmcli/web3-vs-ethers
 contract Counter {
-    uint count = 0;
+    uint public count = 0;
 
     function increment() public {
         count = count + 1;
