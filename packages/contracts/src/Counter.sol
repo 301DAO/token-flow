@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Unlicense
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.13;
 
 // Credits to https://github.com/adrianmcli/web3-vs-ethers
 contract Counter {

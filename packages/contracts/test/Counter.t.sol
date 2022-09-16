@@ -1,16 +1,19 @@
 // SPDX-License-Identifier: Unlicense
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.13;
 
-import {BaseTest} from "./base/BaseTest.sol";
-import {Counter} from "../Counter.sol";
+import {Counter} from "../src/Counter.sol";
+import "forge-std/Test.sol";
 
-contract CounterTest is BaseTest {
-    function setUp() public {}
+contract CounterTest is Test {
+    Counter c;
+
+    function setUp() public {
+        c = new Counter();
+    }
 
     function testIncrementCounter() public {
-        Counter counter = new Counter();
-        require(counter.getCount() == 0, "Counter should be 0");
-        counter.increment();
-        require(counter.getCount() == 1, "Counter should be 1");
+        require(c.getCount() == 0, "Counter should be 0");
+        c.increment();
+        require(c.getCount() == 1, "Counter should be 1");
     }
 }

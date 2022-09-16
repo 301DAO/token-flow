@@ -1,3 +1,7 @@
-[default]
-src = "./packages/contracts/src"
+[profile.default]
+src = "./packages/contracts"
+lib = "./packages/contracts/lib"
 verbosity = 1
+remappings = [
+  "forge-std/=lib/forge-std/src/"
+]
