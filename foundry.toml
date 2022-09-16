@@ -1,0 +1,3 @@
+[default]
+src = "./packages/contracts/src"
+verbosity = 1
