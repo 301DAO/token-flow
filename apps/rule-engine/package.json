@@ -9,6 +9,7 @@
   },
   "type": "module",
   "devDependencies": {
+    "@types/node": "18.7.16",
     "eslint-config-custom": "workspace:*",
     "nodemon": "^2.0.19",
     "tsconfig": "workspace:*",
@@ -16,9 +17,6 @@
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.172.0",
-    "@shelf/dynamodb-parallel-scan": "^3.3.0",
-    "@types/node": "18.7.16",
-    "dotenv": "^16.0.2",
-    "ioredis": "^5.2.3"
+    "dotenv": "^16.0.2"
   }
 }
