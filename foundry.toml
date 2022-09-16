@@ -1,5 +1,6 @@
 [profile.default]
-src = "./packages/contracts"
+src = "./packages/contracts/src"
+test = "./packages/contracts/test"
 libs = ["./packages/contracts/lib"]
 out = "./packages/contracts/out"
 cache_path = "./packages/contracts/cache"
