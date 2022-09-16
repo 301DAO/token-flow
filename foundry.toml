@@ -1,7 +1,7 @@
 [profile.default]
 src = "./packages/contracts"
-lib = "./packages/contracts/lib"
+libs = ["./packages/contracts/lib"]
 verbosity = 1
 remappings = [
-  "forge-std/=lib/forge-std/src/"
+  "forge-std/=./packages/contracts/lib/forge-std/src/"
 ]
