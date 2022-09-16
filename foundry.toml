@@ -6,5 +6,6 @@ out = "./packages/contracts/out"
 cache_path = "./packages/contracts/cache"
 verbosity = 1
 remappings = [
-  "forge-std/=./packages/contracts/lib/forge-std/src/"
+  "forge-std/=./packages/contracts/lib/forge-std/src/",
+  "@openzeppelin/=./packages/contracts/lib/openzeppelin-contracts/",
 ]
