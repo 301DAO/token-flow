@@ -13,12 +13,12 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
+      <main className='h-screen flex flex-col'>
         <Mezzanine />
         <Container />
       </main>
     </>
   )
-}
+};
 
-export default Home
+export default Home;

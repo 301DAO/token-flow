@@ -39,10 +39,18 @@ function NetworkSelect (props: NetworkSelectProps) {
                 <div className='bg-green-500 rounded-full h-2 w-2 shrink-0 mt-2 mr-2'></div>
             </div>
             {(explorerConfigs || [])
-                .map(config => <a href={config.explorerUrl} className='flex flex-row items-center hover:text-neutral-700 text-neutral-500'>
-                    <div className='mt-2 ml-2 text-xs grow'>{config.explorerName}</div>
-                    <img src='/new-tab.svg' className='h-3 mt-2 mr-2'/>
-                </a>)
+                .map(config =>
+                    <a
+                        href={config.explorerUrl}
+                        className='flex flex-row items-center hover:text-neutral-700 text-neutral-500'
+                        key={config.explorerName}
+                    >
+                        <div className='mt-2 ml-2 text-xs grow'>
+                            {config.explorerName}
+                        </div>
+                        <img src='/new-tab.svg' className='h-3 mt-2 mr-2'/>
+                    </a>
+                )
             }
         </div>;
     } else {
