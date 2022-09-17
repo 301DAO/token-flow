@@ -2,8 +2,8 @@ import * as React from 'react';
 
 
 function ChainSelectPopover(props: {}) {
-    return <div className='flex flex-col mt-3 rounded-lg bg-primary-alt shadow'>
-        <div className='pt-2 pl-2 text-slate-700'>Select a network</div>
+    return <div className='flex flex-col mt-3 rounded-lg bg-primary-alt shadow w-60 pb-4'>
+        <div className='pt-2 pl-2 text-slate-700 '>Select a network</div>
         <NetworkSelect
             selected
             networkName='Ethereum'
@@ -55,10 +55,12 @@ function NetworkSelect (props: NetworkSelectProps) {
             }
         </div>;
     } else {
-        return <div className='flex flex-row items-center mt-2 pb-4 mx-4'>
-            <img className='h-6 shrink-0 mt-2 mr-2 ml-2' src={networkLogoPath} />
-            <div className='grow mt-2 mr-6'>{networkName}</div>
-        </div>;
+        return <a href='a'>
+            <div className='flex flex-row items-center mt-2 mx-4'>
+                <img className='h-6 shrink-0 mt-2 mr-2 ml-2' src={networkLogoPath} />
+                <div className='grow mt-2 mr-6'>{networkName}</div>
+            </div>
+        </a>;
     }
 }
 

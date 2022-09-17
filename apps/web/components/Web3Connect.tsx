@@ -22,6 +22,7 @@ function Web3Connect(props: {}) {
                 <img src='/down-arrow.svg' className='h-5' />
             </div>
             <div className={`absolute z-20 hover:visible ${chainSelectPopoverVisible ? 'visible' : 'invisible'}`}>
+            {/* <div className={`absolute z-20 hover:visible visible`}> */}
                 <ChainSelectPopover />
             </div>
         </div>
