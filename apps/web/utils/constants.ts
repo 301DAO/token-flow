@@ -1,1 +1,1 @@
-export const className_Icon = 'h-6 mr-16';
+export const className_Icon = 'h-6 mr-8';
