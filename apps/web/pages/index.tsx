@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import Container from './components/Container'
-import Mezzanine from './components/Mezzanine'
+import Container from '../components/Container'
+import Mezzanine from '../components/Mezzanine'
 
 const Home: NextPage = () => {
   return (

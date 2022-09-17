@@ -1,13 +1,11 @@
 import * as React from 'react';
-import styles from '../../styles/mezzanine.module.css';
-import homeStyles from '../../styles/Home.module.css';
 import MenuItem from './MenuItem';
 import Web3Connect from './Web3Connect';
 
 function Mezzanine(props: {}) {
-    return <div className={styles.mezzanine}>
-        <div className={`${homeStyles.material} ${homeStyles['flex-row']}`}>
-            <img src='/stats.svg' className={homeStyles.logo} />
+    return <div className='h-16 shrink-0 bg-primary-bg'>
+        <div className='flex flex-row pt-1 min-w-full items-center'>
+            <img src='/stats.svg' className='h-6 ml-8 mr-16' />
             <MenuItem menuName='Recipes' link='' />
             <MenuItem menuName='Marketplace' link='' />
             <MenuItem menuName='Playground' link='' />
