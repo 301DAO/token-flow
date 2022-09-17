@@ -3,12 +3,16 @@
 pragma solidity ^0.8.13;
 
 contract Config {
-    // function signature of "postProcess()"
-    bytes4 public constant POSTPROCESS_SIG = 0xc2722916;
+  // function signature of "postProcess()"
+  bytes4 public constant POSTPROCESS_SIG = 0xc2722916;
 
-    // The base amount of percentage function
-    uint256 public constant PERCENTAGE_BASE = 1 ether;
+  // The base amount of percentage function
+  uint256 public constant PERCENTAGE_BASE = 1 ether;
 
-    // Handler post-process type. Others should not happen now.
-    enum HandlerType {Token, Custom, Others}
+  // Handler post-process type. Others should not happen now.
+  enum HandlerType {
+    Token,
+    Custom,
+    Others
+  }
 }
