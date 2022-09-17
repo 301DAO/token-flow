@@ -1,0 +1,11 @@
+[profile.default]
+src = "./src"
+test = "./test"
+libs = ["./lib"]
+out = "./out"
+cache_path = "./cache"
+verbosity = 1
+remappings = [
+  "forge-std/=./lib/forge-std/src/",
+  "@openzeppelin/=./lib/openzeppelin-contracts/",
+]
