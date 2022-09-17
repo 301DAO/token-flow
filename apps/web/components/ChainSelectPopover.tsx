@@ -44,6 +44,7 @@ function NetworkSelect (props: NetworkSelectProps) {
                         href={config.explorerUrl}
                         className='flex flex-row items-center hover:text-neutral-700 text-neutral-500'
                         key={config.explorerName}
+                        target='_blank' rel='noopener noreferrer'
                     >
                         <div className='mt-2 ml-2 text-xs grow'>
                             {config.explorerName}

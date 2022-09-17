@@ -10,7 +10,6 @@ function Mezzanine(props: {}) {
             <MenuItem menuName='Marketplace' link='' />
             <MenuItem menuName='Playground' link='' />
             <Web3Connect />
-            {/* <MenuItem menuName='Recipes' link='' /> */}
         </div>
     </div>
 }
