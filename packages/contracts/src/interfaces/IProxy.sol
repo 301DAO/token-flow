@@ -6,8 +6,7 @@ interface IProxy {
   function batchExec(
     address[] calldata tos,
     bytes32[] calldata configs,
-    bytes[] memory datas,
-    uint256[] calldata ruleIndexes
+    bytes[] memory datas
   ) external payable;
 
   function execs(

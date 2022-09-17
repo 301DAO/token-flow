@@ -10,9 +10,7 @@ import './Storage.sol';
 import './Config.sol';
 import './lib/LibParam.sol';
 import './lib/LibStack.sol';
-import './lib/LibFeeStorage.sol';
 import './interfaces/IRegistry.sol';
-import './interfaces/IFeeRuleRegistry.sol';
 
 /**
  * Adapted from furucombo-contract
@@ -25,9 +23,6 @@ contract Proxy is IProxy, Storage, Config {
   using LibParam for bytes32;
   using LibStack for bytes32[];
   using Strings for uint256;
-  using LibFeeStorage for mapping(bytes32 => bytes32);
-
-  event ChargeFee(address indexed tokenIn, uint256 feeAmount);
 
   modifier isNotBanned() {
     require(registry.bannedAgents(address(this)) == 0, 'Banned');
@@ -41,11 +36,9 @@ contract Proxy is IProxy, Storage, Config {
 
   address private constant NATIVE_TOKEN = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
   IRegistry public immutable registry;
-  IFeeRuleRegistry public immutable feeRuleRegistry;
 
-  constructor(address registry_, address feeRuleRegistry_) {
+  constructor(address registry_) {
     registry = IRegistry(registry_);
-    feeRuleRegistry = IFeeRuleRegistry(feeRuleRegistry_);
   }
 
   /**
@@ -83,15 +76,13 @@ contract Proxy is IProxy, Storage, Config {
    * @param tos The handlers of combo.
    * @param configs The configurations of executing cubes.
    * @param datas The combo datas.
-   * @param ruleIndexes The indexes of rules.
    */
   function batchExec(
     address[] calldata tos,
     bytes32[] calldata configs,
-    bytes[] memory datas,
-    uint256[] calldata ruleIndexes
+    bytes[] memory datas
   ) external payable override isNotHalted isNotBanned {
-    _preProcess(ruleIndexes);
+    _preProcess();
     _execs(tos, configs, datas);
     _postProcess();
   }
@@ -280,26 +271,9 @@ contract Proxy is IProxy, Storage, Config {
   }
 
   /// @notice The pre-process phase.
-  function _preProcess(uint256[] memory ruleIndexes_) internal virtual isStackEmpty {
+  function _preProcess() internal virtual isStackEmpty {
     // Set the sender.
     _setSender();
-    // Set the fee collector
-    cache._setFeeCollector(feeRuleRegistry.feeCollector());
-    // Calculate fee
-    uint256 feeRate = feeRuleRegistry.calFeeRateMulti(_getSender(), ruleIndexes_);
-    require(feeRate <= PERCENTAGE_BASE, 'fee rate out of range');
-    cache._setFeeRate(feeRate);
-    if (msg.value > 0 && feeRate > 0) {
-      // Process ether fee
-      uint256 feeEth = _calFee(msg.value, feeRate);
-
-      // It will fail if fee collector is gnosis contract, because .transfer() will only consume 2300 gas limit.
-      // Replacing .transfer() with .call('') to avoid out of gas
-      address collector = cache._getFeeCollector();
-      (bool success, ) = collector.call{value: feeEth}('');
-      require(success, 'Send fee to collector failed');
-      emit ChargeFee(NATIVE_TOKEN, feeEth);
-    }
   }
 
   /// @notice The post-process phase.
@@ -328,8 +302,6 @@ contract Proxy is IProxy, Storage, Config {
     if (amount > 0) payable(msg.sender).transfer(amount);
 
     // Reset cached datas
-    cache._resetFeeCollector();
-    cache._resetFeeRate();
     _resetSender();
   }
 
