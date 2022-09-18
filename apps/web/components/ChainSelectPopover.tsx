@@ -3,7 +3,7 @@ import * as React from 'react';
 
 function ChainSelectPopover(props: {}) {
     return <div className='flex flex-col mt-3 rounded-lg bg-primary-alt shadow w-60 pb-4'>
-        <div className='pt-2 pl-2 text-slate-700 '>Select a network</div>
+        <div className='pt-2 pl-2 text-slate-700'>Select a network</div>
         <NetworkSelect
             selected
             networkName='Ethereum'

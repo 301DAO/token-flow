@@ -1,5 +1,6 @@
 import * as React from 'react';
 import SequenceInterface from './SequenceInterface';
+import ModeSelector from './ModeSelector';
 
 
 function Container(props: {}) {
@@ -10,10 +11,7 @@ function Container(props: {}) {
                 <p className='text-xs text-slate-700'>Test out your ideas</p>
             </div>
             <div className='flex flex-col items-center'>
-                <button className='h-10 bg-primary rounded-md mr-4 pr-4 text-sm font-light'>
-                    <button className='h-10 bg-primary-bg rounded-md px-4 text-sm font-light border-2 border-solid border-primary'>Flow view</button>
-                    <button className='h-10 bg-primary px-4 text-sm font-light text-white'>Editor</button>
-                </button>
+                <ModeSelector selected='editor' />
 
             </div>
             <div className='flex flex-row-reverse items-center grow shrink-0'>
@@ -22,7 +20,10 @@ function Container(props: {}) {
             </div>
         </div>
 
-        <div className='flex flex-col items-center border-b border-solid border-border-gray shadow min-w-full bg-neutral-100 grow'>
+        <div style={{
+            background: 'linear-gradient(90deg, #f3f3f3 20px, transparent 1%) center, linear-gradient(#f3f3f3 20px, transparent 1%) center, #b8b8b8',
+            backgroundSize: '22px 22px'
+        }} className='flex flex-col items-center border-b border-solid border-border-gray shadow min-w-full grow'>
             <div className='h-32' />
             <SequenceInterface/>
         </div>
