@@ -1,5 +1,6 @@
 import * as React from 'react';
-import SequenceInterface from './SequenceInterface';
+import SequenceTrigger from './SequenceTrigger';
+import SequenceAction from './SequenceAction';
 import ModeSelector from './ModeSelector';
 
 
@@ -25,7 +26,9 @@ function Container(props: {}) {
             backgroundSize: '22px 22px'
         }} className='flex flex-col items-center border-b border-solid border-border-gray shadow min-w-full grow'>
             <div className='h-32' />
-            <SequenceInterface/>
+            <SequenceTrigger />
+            <img src='/down-arrow.svg' className='h-10' />
+            <SequenceAction />
         </div>
     </div>;
 }
