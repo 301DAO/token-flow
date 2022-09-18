@@ -9,7 +9,9 @@ module.exports = {
             colors: {
                 'primary-bg': '#DBFDD5',
                 'primary-alt': '#CCE4F1',
-                'custom-gray': '#B3D5B4'
+                'custom-gray': '#B3D5B4',
+                'border-gray': '#F1F0F1',
+                'primary': '#103636'
             }
         },
     },
