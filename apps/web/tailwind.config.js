@@ -11,7 +11,14 @@ module.exports = {
                 'primary-alt': '#CCE4F1',
                 'custom-gray': '#B3D5B4',
                 'border-gray': '#F1F0F1',
-                'primary': '#103636'
+                'primary': '#103636',
+                // 'primary-bg': '#000000',
+                // 'primary-alt': '#CCE4F1',
+                // 'custom-gray': '#B3D5B4',
+                // 'border-gray': '#F1F0F1',
+                // 'primary': '#103636',
+                'primary-text-color': '#000000',
+                'secondary-text-color': '#6B7280',
             }
         },
     },

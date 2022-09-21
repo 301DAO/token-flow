@@ -27,7 +27,9 @@ function Container(props: {}) {
         }} className='flex flex-col items-center border-b border-solid border-border-gray shadow min-w-full grow'>
             <div className='h-32' />
             <SequenceTrigger />
-            <img src='/down-arrow.svg' className='h-10' />
+            <div className='h-20 flex flex-row items-center'>
+                    <img src='/down-arrow.svg' className='h-10' />
+            </div>
             <SequenceAction />
         </div>
     </div>;
