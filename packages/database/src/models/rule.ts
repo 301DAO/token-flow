@@ -17,23 +17,26 @@ export class Rule extends Item implements IRule {
   rules: Array<any>;
 }
 
-export const ruleSchema = new dynamoose.Schema({
-  id: String,
-  userId: String,
-  name: String,
-  description: String,
-  rules: {
-    type: Array,
-    schema: [
-      {
-        type: Object,
-        schema: {
-          id: String,
-          rule: String,
+export const ruleSchema = new dynamoose.Schema(
+  {
+    id: String,
+    userId: String,
+    name: String,
+    description: String,
+    rules: {
+      type: Array,
+      schema: [
+        {
+          type: Object,
+          schema: {
+            id: String,
+            rule: String,
+          },
         },
-      },
-    ],
+      ],
+    },
   },
-});
+  { timestamps: true }
+);
 
-export const RuleModel = dynamoose.model<Rule>('Rule', ruleSchema);
+export const ruleModel = dynamoose.model<Rule>('Rule', ruleSchema);

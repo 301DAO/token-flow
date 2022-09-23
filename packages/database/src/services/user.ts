@@ -35,6 +35,6 @@ export async function getUseByAddress(address: string) {
 }
 
 export async function getAllUsers(): Promise<IUser[]> {
-  const users = await userModel.query().exec();
+  const users = await userModel.scan().exec();
   return users;
 }

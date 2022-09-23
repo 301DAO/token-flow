@@ -18,7 +18,6 @@ export const userSchema = new dynamoose.Schema(
       type: String,
       required: true,
       index: true,
-
     },
   },
   {
