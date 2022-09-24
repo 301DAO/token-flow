@@ -1,0 +1,48 @@
+{
+  "extends": "tsconfig/base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "strict": true,
+    "pretty": true,
+    "allowJs": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "target": "ES2022",
+    "module": "ESNext",
+    "declaration": true,
+    "skipLibCheck": true,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "removeComments": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "resolveJsonModule": true,
+    "preserveConstEnums": true,
+    "moduleResolution": "Node",
+    "preserveWatchOutput": true,
+    "noUncheckedIndexedAccess": true,
+    "importsNotUsedAsValues": "error",
+    "noFallthroughCasesInSwitch": true,
+    "exactOptionalPropertyTypes": true,
+    "useUnknownInCatchVariables": true,
+    "allowSyntheticDefaultImports": true,
+    "strictPropertyInitialization": false,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    ".scratch"
+  ],
+  "ts-node": {
+    "swc": true,
+    "esm": true,
+    "transpileOnly": true,
+  }
+}

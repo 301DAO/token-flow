@@ -14,6 +14,15 @@ We are using turbo repo to manage this monorepo. Learn more [here](https://turbo
 pnpm add <package> --filter <workspace>
 ```
 
+For example:
+
+```sh
+pnpm add rimraf --filter database
+# database is a workspace inside ./packages
+```
+
+notice we're not doing `--filter packages/database`.
+
 To run scripts:
 
 ```bash
