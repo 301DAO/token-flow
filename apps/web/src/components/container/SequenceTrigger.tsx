@@ -35,16 +35,22 @@ function VerbalizeTrigger() {
 
   switch (sandboxFlowData.trigger.triggerType) {
     case TriggerType.RECEIVE_FUNDS:
-      return (
-        <p className="text-sm text-slate-600">
-          This flow will execute whenever this wallet receives{' '}
-          {evaluator && compareThreshold
-            ? `${evaluator.toLowerCase().replaceAll('_', ' ')} ${compareThreshold} token of `
-            : ''}
-          {receiveTokenSymbol}
-          {receiveFrom ? ` from ${shortenString(receiveFrom, 6)}` : ''}
-        </p>
-      );
+      if (receiveTokenSymbol === undefined) {
+        return <p className='text-sm text-rose-800'>
+          No rules configured, click edit button to configure
+        </p>;
+      } else {
+        return (
+          <p className="text-sm text-slate-600">
+            This flow will execute whenever this wallet receives{' '}
+            {evaluator && compareThreshold
+              ? `${evaluator.toLowerCase().replaceAll('_', ' ')} ${compareThreshold} token of `
+              : ''}
+            {receiveTokenSymbol}
+            {receiveFrom ? ` from ${shortenString(receiveFrom, 6)}` : ''}
+          </p>
+        );
+      }
     default:
       return <></>;
   }
