@@ -2,6 +2,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl,
 import * as React from 'react';
 import { SandboxFlowContext } from '../../hooks/sandbox-flow-store';
 import { TriggerType } from '../../models/flow-model';
+import { shortenString } from '../../utils/string-manipulation';
 import ReceiveFunds from './triggers/ReceiveFunds';
 
 
@@ -25,9 +26,9 @@ function VerbalizeTrigger () {
 
     switch (sandboxFlowData.trigger.triggerType) {
         case TriggerType.RECEIVE_FUNDS:
-            return <p>Flow will execute when this wallet receives {(evaluator && compareThreshold)
+            return <p className='text-sm text-slate-600'>Flow will execute when this wallet receives {(evaluator && compareThreshold)
                 ? `${evaluator.toLowerCase().replaceAll('_', ' ')} ${compareThreshold} token of `
-                : ''}{receiveTokenSymbol}{receiveFrom ? ` from ${receiveFrom}` : ''}</p>;
+                : ''}{receiveTokenSymbol}{receiveFrom ? ` from ${shortenString(receiveFrom, 6)}` : ''}</p>;
         default:
             return <></>;
     }
@@ -76,14 +77,16 @@ function SequenceTrigger() {
                         <MenuItem value={TriggerType.AMM_LP_PRICE} disabled >Uniswap LP prices...</MenuItem>
                     </Select>
 
-                    <VerbalizeTrigger />
-
                     {sandboxFlowData.trigger && <Button onClick={() => setShowEditModal(true)} autoFocus>
-                        Edit
+                        🖌️ Edit
                     </Button>}
 
+                    <VerbalizeTrigger />
+
                     <Dialog
+                        // className='w-96'
                         open={showEditModal}
+                        fullWidth
                         onClose={() => setShowEditModal(false)}
                         aria-labelledby="modal-modal-title"
                         aria-describedby="modal-modal-description"

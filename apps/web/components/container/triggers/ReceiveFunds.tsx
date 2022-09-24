@@ -24,7 +24,10 @@ function ReceiveFunds (props: {}) {
                         id="token-select"
                         value={sandboxFlowData.trigger ? sandboxFlowData.trigger.receiveTokenSymbol : 'DEFAULT'}
                         defaultValue='DEFAULT'
+                        className='ml-4 mr-4 w-20'
+                        variant='standard'
                         label="Token"
+                        required
                         onChange={(event) => {
                             if (event.target.value !== 'DEFAULT') {
                                 sandboxFlowDataDispatch({
@@ -49,24 +52,32 @@ function ReceiveFunds (props: {}) {
                     </Select>
                 </div>
                 <div className='flex flex-row items-center'>
-                    <p>from</p>
-                    <TextField id="from-address" value={sandboxFlowData.trigger?.receiveFrom} label="From Address" variant="outlined" onChange={(event) => {
-                        sandboxFlowDataDispatch({
-                            type: 'SET_TRIGGER',
-                            payload: {
-                                ...sandboxFlowData.trigger,
-                                triggerType: TriggerType.RECEIVE_FUNDS,
-                                receiveFrom: event.target.value as string
-                            }
-                        });
-                    }} />
-                    <p>with amount</p>
+                    <p className='px-10'>from</p>
+                    <TextField
+                        id="from-address"
+                        className='px-10 w-96'
+                        value={sandboxFlowData.trigger?.receiveFrom}
+                        variant='standard'
+                        onChange={(event) => {
+                            sandboxFlowDataDispatch({
+                                type: 'SET_TRIGGER',
+                                payload: {
+                                    ...sandboxFlowData.trigger,
+                                    triggerType: TriggerType.RECEIVE_FUNDS,
+                                    receiveFrom: event.target.value as string
+                                }
+                            });
+                        }}
+                    />
                 </div>
                 <div className='flex flex-row items-center'>
+                    <p>with amount</p>
                     <Select
                         id="token-select"
                         value={sandboxFlowData.trigger?.evaluator ? sandboxFlowData.trigger.evaluator : 'DEFAULT'}
+                        variant='standard'
                         defaultValue='DEFAULT'
+                        className='w-40 ml-4 mr-4'
                         label="Evaluator"
                         onChange={(event) => {
                             if (event.target.value !== 'DEFAULT') {
@@ -78,25 +89,41 @@ function ReceiveFunds (props: {}) {
                                         evaluator: event.target.value as Evaluator,
                                     }
                                 });
+                            } else {
+                                sandboxFlowDataDispatch({
+                                    type: 'SET_TRIGGER',
+                                    payload: {
+                                        ...sandboxFlowData.trigger,
+                                        triggerType: TriggerType.RECEIVE_FUNDS,
+                                        evaluator: undefined,
+                                    }
+                                });
                             }
                         }}
                     >
+                        <MenuItem value='DEFAULT' > </MenuItem>
                         <MenuItem value={Evaluator.GREATER_THAN} >Greater than</MenuItem>
                         <MenuItem value={Evaluator.LESS_THAN}>Less than</MenuItem>
                         <MenuItem value={Evaluator.EQUALS_TO}>Equals to</MenuItem>
                     </Select>
-                    <TextField id="value" label="Of value" value={sandboxFlowData.trigger?.compareThreshold} variant="outlined" onChange={
-                        (event) => {
-                            sandboxFlowDataDispatch({
-                                type: 'SET_TRIGGER',
-                                payload: {
-                                    ...sandboxFlowData.trigger,
-                                    triggerType: TriggerType.RECEIVE_FUNDS,
-                                    compareThreshold: + event.target.value as number
-                                }
-                            });
+                    <TextField
+                        id="value"
+                        value={sandboxFlowData.trigger?.compareThreshold}
+                        type="number"
+                        variant="standard"
+                        onChange={
+                            (event) => {
+                                sandboxFlowDataDispatch({
+                                    type: 'SET_TRIGGER',
+                                    payload: {
+                                        ...sandboxFlowData.trigger,
+                                        triggerType: TriggerType.RECEIVE_FUNDS,
+                                        compareThreshold: + event.target.value as number
+                                    }
+                                });
+                            }
                         }
-                    }/>
+                    />
                 </div>
             </div>
         </FormControl>
