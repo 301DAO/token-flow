@@ -18,7 +18,7 @@ function ReceiveFunds (props: {}) {
     return <div>
         <FormControl>
             <div className='flex flex-col'>
-                <div className='flex flex-row items-center'>
+                <div className='flex flex-row items-center mb-10'>
                     <p>When you receive</p>
                     <Select
                         id="token-select"
@@ -51,7 +51,7 @@ function ReceiveFunds (props: {}) {
                         <MenuItem value='USDT'>USDT</MenuItem>
                     </Select>
                 </div>
-                <div className='flex flex-row items-center'>
+                <div className='flex flex-row items-center mb-10'>
                     <p className='px-10'>from</p>
                     <TextField
                         id="from-address"
