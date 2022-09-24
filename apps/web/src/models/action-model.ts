@@ -1,5 +1,3 @@
-import { BigNumber } from "ethers";
-
 export enum ActionType {
     MONEY_ACTION = 'MONEY_ACTION',
     ALERT_ACTION = 'ALERT_ACTION'
@@ -16,14 +14,10 @@ export enum SplitType {
     BY_PERCENTAGE = 'BY_PERCENTAGE'
 }
 
-// TBD, ignored for now
+// TBD, ignore for now
 export enum AlertType {
-    EMAIL = 'EMAIL',
-    TELEGRAM = 'TELEGRAM',
-    SLACK = 'SLACK',
-    SMS = 'SMS',
-    DISCORD = 'DISCORD',
-    PUSH_NOTIFICATION = 'PUSH_NOTIFICATION'
+    PIPEDREAM = 'PIPEDREAM',
+    EPNS = 'EPNS'
 }
 
 export interface ActionBaseModel {
