@@ -6,7 +6,7 @@ const initialSandboxFlowData: FlowModel = { accountAddress: undefined, trigger: 
 type Action =
     | { type: 'SET_TRIGGER', payload: TriggerModel }
     | { type: 'SET_ACTIONS', payload: ActionModel[] }
-    | { type: 'SET_ACCOUNT_ADDRESS', payload: string };
+    | { type: 'SET_ACCOUNT_ADDRESS', payload?: string };
 
 const sandboxFlowReducer = (state: FlowModel, action: Action): FlowModel => {
     switch (action.type) {

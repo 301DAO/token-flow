@@ -26,7 +26,7 @@ function VerbalizeTrigger () {
 
     switch (sandboxFlowData.trigger.triggerType) {
         case TriggerType.RECEIVE_FUNDS:
-            return <p className='text-sm text-slate-600'>Flow will execute when this wallet receives {(evaluator && compareThreshold)
+            return <p className='text-sm text-slate-600'>Flow will execute whenever this wallet receives {(evaluator && compareThreshold)
                 ? `${evaluator.toLowerCase().replaceAll('_', ' ')} ${compareThreshold} token of `
                 : ''}{receiveTokenSymbol}{receiveFrom ? ` from ${shortenString(receiveFrom, 6)}` : ''}</p>;
         default:
@@ -58,7 +58,7 @@ function SequenceTrigger() {
             <div className='flex flex-col items-center'>
 
                 <FormControl className='w-60'>
-                    <InputLabel id="trigger-select-label">Source</InputLabel>
+                    <InputLabel id="trigger-select-label">When</InputLabel>
                     <Select
                         labelId="trigger-select-label"
                         id="trigger-select"
@@ -72,7 +72,7 @@ function SequenceTrigger() {
                             setShowEditModal(true);
                         }}
                     >
-                        <MenuItem value={TriggerType.RECEIVE_FUNDS}>Wallet receiving funds...</MenuItem>
+                        <MenuItem value={TriggerType.RECEIVE_FUNDS}>wallet receiving funds...</MenuItem>
                         <MenuItem value={TriggerType.AMM_LP_LIQUIDITY_THRESHOLD} disabled >Uniswap LP TVL thresholds...</MenuItem>
                         <MenuItem value={TriggerType.AMM_LP_PRICE} disabled >Uniswap LP prices...</MenuItem>
                     </Select>
@@ -99,7 +99,7 @@ function SequenceTrigger() {
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={() => setShowEditModal(false)} autoFocus>
-                                Close
+                                Looks good!
                             </Button>
                         </DialogActions>
                     </Dialog>

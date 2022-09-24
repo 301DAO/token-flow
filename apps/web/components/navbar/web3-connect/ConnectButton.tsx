@@ -8,6 +8,7 @@ import * as React from 'react';
 import { injected } from '../../../utils/connectors';
 import { useEagerConnect, useInactiveListener } from '../../../hooks/web3-provider-hooks';
 import Spinner from '../../common/Spinner';
+import { SandboxFlowContext } from '../../../hooks/sandbox-flow-store';
 
 
 function getErrorMessage(error: Error) {
@@ -24,28 +25,29 @@ function getErrorMessage(error: Error) {
 }
 
 function ConnectButton(props: {}) {
-    const context = useWeb3React<Web3Provider>()
-    const { connector, library, chainId, account, activate, deactivate, active, error } = context
+    const context = useWeb3React<Web3Provider>();
+    const { connector, library, chainId, account, activate, deactivate, active, error } = context;
+    const [sandboxFlowData, sandboxFlowDataDispatch] = React.useContext(SandboxFlowContext);
   
     // handle logic to recognize the connector currently being activated
-    const [activatingConnector, setActivatingConnector] = React.useState<any>()
+    const [activatingConnector, setActivatingConnector] = React.useState<any>();
     React.useEffect(() => {
       if (activatingConnector && activatingConnector === connector) {
         setActivatingConnector(undefined)
       }
-    }, [activatingConnector, connector])
+    }, [activatingConnector, connector]);
   
     // handle logic to eagerly connect to the injected ethereum provider, if it exists and has granted access already
-    const triedEager = useEagerConnect()
+    const triedEager = useEagerConnect();
   
     // handle logic to connect in reaction to certain events on the injected ethereum provider, if it exists
-    useInactiveListener(!triedEager || !!activatingConnector)
+    useInactiveListener(!triedEager || !!activatingConnector);
 
     const currentConnector = injected;
 
-    const activating = currentConnector === activatingConnector
-    const connected = currentConnector === connector
-    const disabled = !triedEager || !!activatingConnector || connected || !!error
+    const activating = currentConnector === activatingConnector;
+    const connected = currentConnector === connector;
+    const disabled = !triedEager || !!activatingConnector || connected || !!error;
 
     if (!disabled) {
         return (
@@ -73,6 +75,7 @@ function ConnectButton(props: {}) {
                     className='bg-primary-alt rounded-lg p-1.5 px-2'
                     onClick={() => {
                         deactivate()
+                        sandboxFlowDataDispatch({ type: 'SET_ACCOUNT_ADDRESS', payload: undefined });
                     }}
                 >
                     Disconnect
