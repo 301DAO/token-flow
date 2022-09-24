@@ -1,13 +1,15 @@
 {
   "name": "database",
   "version": "0.0.1",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "tsc --build",
+    "build": "tsc",
     "start": "node -r dotenv/config .dist/index.js",
-    "dev": "tsc -w & nodemon -r dotenv/config -q -w .dist .dist/index.js",
+    "dev": "tsc --watch && nodemon -r dotenv/config -q --watch dist dist/index.js",
     "clean": "rimraf .dist",
     "run:file": "node -r tsconfig-paths/register --experimental-json-modules --experimental-specifier-resolution=node --loader ts-node/esm --experimental-fetch --no-warnings $npm_config_path"
   },
@@ -21,6 +23,7 @@
     "@types/node": "18.7.16",
     "@types/prettier": "^2.7.0",
     "dotenv": "^16.0.2",
+    "esbuild": "^0.15.9",
     "eslint-config-custom": "workspace:*",
     "nodemon": "^2.0.19",
     "prettier": "^2.7.1",
@@ -32,3 +35,4 @@
     "ulid": "^2.3.0"
   }
 }
+

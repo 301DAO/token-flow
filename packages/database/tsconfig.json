@@ -1,13 +1,14 @@
 {
-  "extends": "../tsconfig/base.json",
+  "extends": "tsconfig/base.json",
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
     "noEmit": true,
     "strict": true,
     "pretty": true,
-    "baseUrl": ".",
     "allowJs": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "target": "ES2022",
+    "module": "ESNext",
     "declaration": true,
     "skipLibCheck": true,
     "alwaysStrict": true,
@@ -29,9 +30,12 @@
     "exactOptionalPropertyTypes": true,
     "useUnknownInCatchVariables": true,
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "forceConsistentCasingInFileNames": true
   },
+  "include": [
+    "**/*.ts"
+  ],
   "exclude": [
     "node_modules",
     ".scratch"

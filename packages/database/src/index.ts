@@ -39,5 +39,4 @@ try {
  */
 export const ddb = { user, rule };
 
-const getAllUsers = await ddb.user.getAllUsers();
-console.log({ getAllUsers });
+ddb.user.getAllUsers().then(console.log);
