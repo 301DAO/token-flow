@@ -6,6 +6,7 @@ export enum ActionType {
 export enum MoneyStrategyType {
     DEPOSIT_TO_AAVE = 'DEPOSIT_TO_AAVE',
     SWAP_ON_UNISWAP = 'SWAP_ON_UNISWAP',
+    TRANSFER_TO_ADDRESS = 'TRANSFER_TO_ADDRESS'
 }
 
 export enum SplitType {
