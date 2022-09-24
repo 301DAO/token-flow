@@ -11,7 +11,7 @@ function ChainSelectPopover(props: {}) {
             explorerConfigs={[{
                 explorerUrl: 'https://etherscan.io/',
                 explorerName: 'Etherscan'
-            }]} 
+            }]}
         />
         <NetworkSelect selected={false} networkName='Polygon' networkLogoPath='/polygon-logo.webp' />
         <NetworkSelect selected={false} networkName='Optimism' networkLogoPath='/optimism-logo.svg' />
