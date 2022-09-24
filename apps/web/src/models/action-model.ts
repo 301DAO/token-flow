@@ -1,3 +1,5 @@
+import { BigNumber } from "ethers";
+
 export enum ActionType {
     MONEY_ACTION = 'MONEY_ACTION',
     ALERT_ACTION = 'ALERT_ACTION'
@@ -59,7 +61,7 @@ export interface MoneyStrategy {
     // UNISWAP
     tokenOutAddress?: string;
 
-    // optional (not used)
+    // optional (not used because we only do EVENLY for now)
     weight?: number;
 }
 
