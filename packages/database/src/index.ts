@@ -29,6 +29,8 @@ try {
 /**
  * Create, update, delete, and get user/s.
  * ```ts
+ * import { ddb } from 'database';
+ * 
  * const allUsers = await ddb.user.getAllUsers();
  *
  * const user = await ddb.user.getUseByAddress('0x...');

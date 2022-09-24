@@ -1,0 +1,25 @@
+{
+  "extends": "tsconfig/base.json",
+  "compilerOptions": {
+    "strict": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "target": "ES2022",
+    "module": "ESNext",
+    "esModuleInterop": true,
+    "strictPropertyInitialization": false
+  },
+  "include": [
+    "**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    ".scratch",
+    "dist"
+  ],
+  "ts-node": {
+    "swc": true,
+    "esm": true,
+    "transpileOnly": true,
+  }
+}

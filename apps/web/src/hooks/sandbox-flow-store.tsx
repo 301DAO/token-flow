@@ -1,7 +1,7 @@
 import React, { useReducer, createContext } from 'react';
-import { ActionBaseModel } from '../models/action-model';
-import { TriggerModel } from '../models/trigger-model';
-import { FlowModel } from '../models/flow-model';
+import { ActionBaseModel } from 'internal-common';
+import { TriggerModel } from 'internal-common';
+import { FlowModel } from 'internal-common';
 
 const initialSandboxFlowData: FlowModel = {
   accountAddress: undefined,
@@ -11,7 +11,7 @@ const initialSandboxFlowData: FlowModel = {
 type Action =
   | { type: 'SET_TRIGGER'; payload: TriggerModel }
   | { type: 'SET_ACTIONS'; payload: ActionBaseModel[] }
-  | { type: 'SET_ACCOUNT_ADDRESS_CHAIN_ID', payload?: { accountAddress: string, chainId: number } };
+  | { type: 'SET_ACCOUNT_ADDRESS_CHAIN_ID'; payload?: { accountAddress: string; chainId: number } };
 
 const sandboxFlowReducer = (state: FlowModel, action: Action): FlowModel => {
   switch (action.type) {
@@ -20,7 +20,11 @@ const sandboxFlowReducer = (state: FlowModel, action: Action): FlowModel => {
     case 'SET_ACTIONS':
       return { ...state, actions: action.payload };
     case 'SET_ACCOUNT_ADDRESS_CHAIN_ID':
-      return { ...state, accountAddress: action.payload?.accountAddress, chainId: action.payload?.chainId };
+      return {
+        ...state,
+        accountAddress: action.payload?.accountAddress,
+        chainId: action.payload?.chainId,
+      };
     default:
       return state;
   }

@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import * as React from 'react';
 import { SandboxFlowContext } from '../../hooks/sandbox-flow-store';
-import { TriggerType } from '../../models/trigger-model';
+import { TriggerType } from 'internal-common';
 import { shortenString } from '../../utils/string-manipulation';
 import ReceiveFunds from './triggers/ReceiveFunds';
 
@@ -36,9 +36,11 @@ function VerbalizeTrigger() {
   switch (sandboxFlowData.trigger.triggerType) {
     case TriggerType.RECEIVE_FUNDS:
       if (receiveTokenSymbol === undefined) {
-        return <p className='text-sm text-rose-800'>
-          No rules configured, click edit button to configure
-        </p>;
+        return (
+          <p className="text-sm text-rose-800">
+            No rules configured, click edit button to configure
+          </p>
+        );
       } else {
         return (
           <p className="text-sm text-slate-600">

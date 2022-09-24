@@ -26,6 +26,15 @@
         "VERCEL_URL"
       ]
     },
+    "database#dev": {
+      "env": [
+        "NODE_ENV",
+        "DYNAMODB_LOCAL_ENDPOINT",
+        "AWS_REGION",
+        "AWS_ACCESS_KEY_ID",
+        "AWS_SECRET_ACCESS_KEY"
+      ]
+    },
     "clean": {
       "cache": false
     },

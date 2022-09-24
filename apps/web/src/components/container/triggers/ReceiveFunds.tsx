@@ -1,9 +1,9 @@
 import { FormControl, MenuItem, Select, TextField } from '@mui/material';
 import * as React from 'react';
-import { ChainId } from '../../../constants/networks';
-import { TOKENS } from '../../../constants/tokens';
+import { ChainId } from 'internal-common';
+import { TOKENS } from 'internal-common';
 import { SandboxFlowContext } from '../../../hooks/sandbox-flow-store';
-import { Evaluator, TriggerType } from '../../../models/trigger-model';
+import { Evaluator, TriggerType } from 'internal-common';
 import { useNetwork, useAccount } from 'wagmi';
 
 function ReceiveFunds(props: {}) {
