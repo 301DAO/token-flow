@@ -72,6 +72,7 @@ function SequenceTrigger() {
                             setShowEditModal(true);
                         }}
                     >
+                        <MenuItem value='DEFAULT' disabled > </MenuItem>
                         <MenuItem value={TriggerType.RECEIVE_FUNDS}>wallet receiving funds...</MenuItem>
                         <MenuItem value={TriggerType.AMM_LP_LIQUIDITY_THRESHOLD} disabled >Uniswap LP TVL thresholds...</MenuItem>
                         <MenuItem value={TriggerType.AMM_LP_PRICE} disabled >Uniswap LP prices...</MenuItem>

@@ -19,7 +19,7 @@ function ReceiveFunds (props: {}) {
         <FormControl>
             <div className='flex flex-col'>
                 <div className='flex flex-row items-center mb-10'>
-                    <p>When you receive</p>
+                    <p className='text-sm text-slate-800'>When you receive</p>
                     <Select
                         id="token-select"
                         value={sandboxFlowData.trigger ? sandboxFlowData.trigger.receiveTokenSymbol : 'DEFAULT'}
@@ -35,14 +35,15 @@ function ReceiveFunds (props: {}) {
                                     payload: {
                                         ...sandboxFlowData.trigger,
                                         triggerType: TriggerType.RECEIVE_FUNDS,
-                                        receiveTokenAddress: TOKENS[event.target.value].addressMap[chainId as ChainId],
-                                        receiveTokenDecimal: TOKENS[event.target.value].decimal,
-                                        receiveTokenSymbol: TOKENS[event.target.value].symbol,
+                                        receiveTokenAddress: event.target.value === 'ETH' ? undefined : TOKENS[event.target.value].addressMap[chainId as ChainId],
+                                        receiveTokenDecimal: event.target.value === 'ETH' ? undefined : TOKENS[event.target.value].decimal,
+                                        receiveTokenSymbol: event.target.value === 'ETH' ? 'ETH' : TOKENS[event.target.value].symbol,
                                     }
                             });
                             }
                         }}
                     >
+                        <MenuItem value='DEFAULT' disabled > </MenuItem>
                         <MenuItem value='ETH' >ETH</MenuItem>
                         <MenuItem value='WETH'>WETH</MenuItem>
                         <MenuItem value='WBTC'>WBTC</MenuItem>
@@ -52,11 +53,11 @@ function ReceiveFunds (props: {}) {
                     </Select>
                 </div>
                 <div className='flex flex-row items-center mb-10'>
-                    <p className='px-10'>from</p>
+                    <p className='px-4 text-sm text-slate-800'>from <i className='text-xs'>(optional)</i></p>
                     <TextField
                         id="from-address"
                         className='px-10 w-96'
-                        value={sandboxFlowData.trigger?.receiveFrom}
+                        value={sandboxFlowData.trigger?.receiveFrom || ''}
                         variant='standard'
                         onChange={(event) => {
                             sandboxFlowDataDispatch({
@@ -71,9 +72,9 @@ function ReceiveFunds (props: {}) {
                     />
                 </div>
                 <div className='flex flex-row items-center'>
-                    <p>with amount</p>
+                    <p className='text-sm text-slate-800'>with amount <i className='text-xs'>(optional)</i></p>
                     <Select
-                        id="token-select"
+                        id="token-amount-threshold-evaluator-select"
                         value={sandboxFlowData.trigger?.evaluator ? sandboxFlowData.trigger.evaluator : 'DEFAULT'}
                         variant='standard'
                         defaultValue='DEFAULT'
@@ -108,7 +109,7 @@ function ReceiveFunds (props: {}) {
                     </Select>
                     <TextField
                         id="value"
-                        value={sandboxFlowData.trigger?.compareThreshold}
+                        value={sandboxFlowData.trigger?.compareThreshold || ''}
                         type="number"
                         variant="standard"
                         onChange={
