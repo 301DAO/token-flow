@@ -6,8 +6,11 @@ function SequenceTrigger (props: {}) {
             <p className='text-sm font-bold text-gray-500'>Trigger</p>
             <div className='flex flex-col items-center'>
                 <div ></div>
-                <div>hello</div>
-                <div>yea</div>
+                <select name='Select your trigger' id='trigger-select' defaultValue='default' >
+                    <option value='default' disabled selected >Select your option</option>
+                    <option value='receiving-funds'>Wallet receiving funds...</option>
+                    <option value='uniswap' disabled >Uniswap LP events...</option>
+                </select>
             </div>
             {/* <p className='text-xs text-slate-700'>Setup your event triggering</p> */}
         </div>

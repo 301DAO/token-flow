@@ -1,1 +1,8 @@
-export const className_Icon = 'h-6 mr-8';
+export const NETWORK_NAME_TO_CHAIN_ID = {
+    1: 'mainnet',
+    3: 'ropsten',
+    42: 'kovan',
+    56: 'bsc',
+    4: 'rinkeby',
+    5: 'goerli'
+}
