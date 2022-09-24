@@ -5,18 +5,22 @@ export enum TriggerType {
     AMM_LP_PRICE = 'AMM_LP_PRICE'
 }
 
-export type Evaluator = 'GREATER_THAN' | 'LESS_THAN' | 'EQUALS';
+export enum Evaluator{
+    GREATER_THAN = 'GREATER_THAN',
+    LESS_THAN = 'LESS_THAN',
+    EQUALS_TO = 'EQUALS_TO'
+}
 
 export interface TriggerModel {
     triggerType: TriggerType;
 
     // 'RECEIVE_FUNDS' trigger
     receiveFrom?: string;
-    receiveAmount?: number;
-    receiveToken?: string;
+    receiveTokenAddress?: string;
     receiveTokenDecimal?: number;
     receiveTokenSymbol?: string;
     evaluator?: Evaluator;
+    compareThreshold?: number;
 
     // 'AMM_LP_LIQUIDITY_THRESHOLD' trigger
 
