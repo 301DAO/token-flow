@@ -49,43 +49,45 @@ function ConnectButton(props: {}) {
 
     if (!disabled) {
         return (
-            <>
+            <div className='h-8 w-96 flex flex-row-reverse items-center mr-8'>
                 <button
+                    className='bg-primary-alt rounded-lg p-1.5 px-2'
                     disabled={disabled}
                     onClick={() => {
-                    setActivatingConnector(currentConnector)
-                    activate(currentConnector, (error) => {
-                        if (error) {
-                            setActivatingConnector(undefined);
-                        }
-                    })
+                        setActivatingConnector(currentConnector)
+                        activate(currentConnector, (error) => {
+                            if (error) {
+                                setActivatingConnector(undefined);
+                            }
+                        })
                     }}
                 >
                     <div>
                         {activating && <Spinner />}
                         {connected && (
                             <span role="img" aria-label="check">
-                            ✅
+                                ✅
                             </span>
                         )}
                     </div>
                     Connect
                 </button>
-            </>
+            </div>
         );
     } else {
-        return <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        return <div className='h-6 flex flex-row-reverse items-center mr-8'>
             {(active || error) && (
-            <button
-                onClick={() => {
-                deactivate()
-                }}
-            >
-                Deactivate
-            </button>
+                <button
+                    className='bg-primary-alt rounded-lg p-1.5 px-2'
+                    onClick={() => {
+                        deactivate()
+                    }}
+                >
+                    Disconnect
+                </button>
             )}
 
-            {!!error && <h4 style={{ marginTop: '1rem', marginBottom: '0' }}>{getErrorMessage(error)}</h4>}
+            {!!error && <h4>{getErrorMessage(error)}</h4>}
         </div>;
     }
 }
