@@ -26,7 +26,7 @@ function VerbalizeTrigger () {
 
     switch (sandboxFlowData.trigger.triggerType) {
         case TriggerType.RECEIVE_FUNDS:
-            return <p className='text-sm text-slate-600'>Flow will execute whenever this wallet receives {(evaluator && compareThreshold)
+            return <p className='text-sm text-slate-600'>This flow will execute whenever this wallet receives {(evaluator && compareThreshold)
                 ? `${evaluator.toLowerCase().replaceAll('_', ' ')} ${compareThreshold} token of `
                 : ''}{receiveTokenSymbol}{receiveFrom ? ` from ${shortenString(receiveFrom, 6)}` : ''}</p>;
         default:
