@@ -4,7 +4,7 @@
   "scripts": {
     "build": "tsc --build",
     "start": "node -r dotenv/config .dist/index.js",
-    "dev": "tsc -w & nodemon -r dotenv/config -q -w .dist .dist/index.js",
+    "dev": "tsc -w && nodemon -r dotenv/config -q -w .dist .dist/index.js",
     "clean": "rm -rf .dist"
   },
   "type": "module",
@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.172.0",
-    "dotenv": "^16.0.2"
+    "dotenv": "^16.0.2",
+    "ethers-client": "workspace:*"
   }
 }

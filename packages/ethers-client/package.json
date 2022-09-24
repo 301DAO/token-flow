@@ -1,0 +1,21 @@
+{
+  "name": "ethers-client",
+  "version": "0.0.1",
+  "main": ".dist/index.js",
+  "types": ".dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf .dist"
+  },
+  "devDependencies": {
+    "@types/node": "18.7.16",
+    "eslint-config-custom": "workspace:*",
+    "rimraf": "^3.0.2",
+    "tsconfig": "workspace:*",
+    "typescript": "4.8.3"
+  },
+  "dependencies": {
+    "@ethersproject/experimental": "^5.7.0",
+    "ethers": "^5.7.1"
+  }
+}
