@@ -1,6 +1,7 @@
-import { Box, FormControl, InputLabel, MenuItem, Modal, Select } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import * as React from 'react';
-import { TriggerType, useSandboxFlowData } from '../../hooks/sandbox-flow-hooks';
+import { useSandboxFlowData } from '../../hooks/sandbox-flow-hooks';
+import { TriggerType } from '../../models/flow-model';
 import ReceiveFunds from './triggers/ReceiveFunds';
 
 
@@ -57,16 +58,28 @@ function SequenceTrigger() {
                     </Select>
 
                     {(sandboxFlowData.trigger)
-                        && <Modal
+                        && <Dialog 
                             open={showEditModal}
                             onClose={() => setShowEditModal(false)}
                             aria-labelledby="modal-modal-title"
                             aria-describedby="modal-modal-description"
                         >
-                            <Box>
+                            <DialogTitle id="alert-dialog-title">
+                                Setup conditions when you receive funds
+                            </DialogTitle>
+                            <DialogContent>
+                                {/* <DialogContentText id="alert-dialog-description">
+                                    Let Google help apps determine location. This means sending anonymous
+                                    location data to Google, even when no apps are running.
+                                </DialogContentText> */}
                                 <EditTrigger triggerType={sandboxFlowData.trigger.triggerType} />
-                            </Box>
-                        </Modal>}
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={() => setShowEditModal(false)} autoFocus>
+                                    Close
+                                </Button>
+                            </DialogActions>
+                    </Dialog>}
                 </FormControl>
             </div>
         </div>

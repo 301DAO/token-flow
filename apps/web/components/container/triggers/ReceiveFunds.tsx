@@ -11,8 +11,6 @@ function ReceiveFunds (props: {}) {
     }
 
     return <div>
-        <h3>Receive Funds trigger</h3>
-        <br />
         <FormControl>
             <p>TODO</p>
         </FormControl>
