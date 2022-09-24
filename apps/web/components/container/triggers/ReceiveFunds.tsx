@@ -3,13 +3,13 @@ import { useWeb3React } from '@web3-react/core';
 import * as React from 'react';
 import { ChainId } from '../../../constants/networks';
 import { TOKENS } from '../../../constants/tokens';
-import { useSandboxFlowData } from '../../../hooks/sandbox-flow-hooks';
+import { SandboxFlowContext } from '../../../hooks/sandbox-flow-store';
 import { Evaluator, TriggerType } from '../../../models/flow-model';
 
 
 function ReceiveFunds (props: {}) {
+    const [sandboxFlowData, sandboxFlowDataDispatch] = React.useContext(SandboxFlowContext);
     const { account, library, chainId } = useWeb3React();
-    const [sandboxFlowData , setSandboxFlowData] = useSandboxFlowData();
 
     if (sandboxFlowData.accountAddress === undefined || chainId === undefined) {
         return <></>;
@@ -27,13 +27,16 @@ function ReceiveFunds (props: {}) {
                         label="Token"
                         onChange={(event) => {
                             if (event.target.value !== 'DEFAULT') {
-                                setSandboxFlowData({ ...sandboxFlowData, trigger: {
-                                    ...sandboxFlowData.trigger,
-                                    triggerType: TriggerType.RECEIVE_FUNDS,
-                                    receiveTokenAddress: TOKENS[event.target.value].addressMap[chainId as ChainId],
-                                    receiveTokenDecimal: TOKENS[event.target.value].decimal,
-                                    receiveTokenSymbol: TOKENS[event.target.value].symbol,
-                                }});
+                                sandboxFlowDataDispatch({
+                                    type: 'SET_TRIGGER',
+                                    payload: {
+                                        ...sandboxFlowData.trigger,
+                                        triggerType: TriggerType.RECEIVE_FUNDS,
+                                        receiveTokenAddress: TOKENS[event.target.value].addressMap[chainId as ChainId],
+                                        receiveTokenDecimal: TOKENS[event.target.value].decimal,
+                                        receiveTokenSymbol: TOKENS[event.target.value].symbol,
+                                    }
+                            });
                             }
                         }}
                     >
@@ -47,10 +50,10 @@ function ReceiveFunds (props: {}) {
                 </div>
                 <div className='flex flex-row items-center'>
                     <p>from</p>
-                    <TextField id="from-address" label="From Address" variant="outlined" onChange={(event) => {
-                        setSandboxFlowData({
-                            ...sandboxFlowData,
-                            trigger: {
+                    <TextField id="from-address" value={sandboxFlowData.trigger?.receiveFrom} label="From Address" variant="outlined" onChange={(event) => {
+                        sandboxFlowDataDispatch({
+                            type: 'SET_TRIGGER',
+                            payload: {
                                 ...sandboxFlowData.trigger,
                                 triggerType: TriggerType.RECEIVE_FUNDS,
                                 receiveFrom: event.target.value as string
@@ -67,11 +70,14 @@ function ReceiveFunds (props: {}) {
                         label="Evaluator"
                         onChange={(event) => {
                             if (event.target.value !== 'DEFAULT') {
-                                setSandboxFlowData({ ...sandboxFlowData, trigger: {
-                                    ...sandboxFlowData.trigger,
-                                    triggerType: TriggerType.RECEIVE_FUNDS,
-                                    evaluator: event.target.value as Evaluator,
-                                }});
+                                sandboxFlowDataDispatch({
+                                    type: 'SET_TRIGGER',
+                                    payload: {
+                                        ...sandboxFlowData.trigger,
+                                        triggerType: TriggerType.RECEIVE_FUNDS,
+                                        evaluator: event.target.value as Evaluator,
+                                    }
+                                });
                             }
                         }}
                     >
@@ -79,11 +85,11 @@ function ReceiveFunds (props: {}) {
                         <MenuItem value={Evaluator.LESS_THAN}>Less than</MenuItem>
                         <MenuItem value={Evaluator.EQUALS_TO}>Equals to</MenuItem>
                     </Select>
-                    <TextField id="value" label="Of value" variant="outlined" onChange={
+                    <TextField id="value" label="Of value" value={sandboxFlowData.trigger?.compareThreshold} variant="outlined" onChange={
                         (event) => {
-                            setSandboxFlowData({
-                                ...sandboxFlowData,
-                                trigger: {
+                            sandboxFlowDataDispatch({
+                                type: 'SET_TRIGGER',
+                                payload: {
                                     ...sandboxFlowData.trigger,
                                     triggerType: TriggerType.RECEIVE_FUNDS,
                                     compareThreshold: + event.target.value as number

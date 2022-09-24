@@ -1,11 +1,11 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import * as React from 'react';
-import { useSandboxFlowData } from '../../hooks/sandbox-flow-hooks';
+import { SandboxFlowContext } from '../../hooks/sandbox-flow-store';
 import { TriggerType } from '../../models/flow-model';
 import ReceiveFunds from './triggers/ReceiveFunds';
 
 
-function EditTrigger(props: { triggerType: TriggerType }) {
+function EditTrigger(props: { triggerType?: TriggerType }) {
     switch (props.triggerType) {
         case TriggerType.RECEIVE_FUNDS:
             return <ReceiveFunds />;
@@ -14,9 +14,28 @@ function EditTrigger(props: { triggerType: TriggerType }) {
     }
 }
 
+function VerbalizeTrigger () {
+    const [sandboxFlowData, sandboxFlowDataDispatch] = React.useContext(SandboxFlowContext);
+
+    if (sandboxFlowData.trigger === undefined) {
+        return <></>;
+    }
+
+    const { receiveFrom, receiveTokenSymbol, evaluator, compareThreshold } = sandboxFlowData.trigger;
+
+    switch (sandboxFlowData.trigger.triggerType) {
+        case TriggerType.RECEIVE_FUNDS:
+            return <p>Flow will execute when this wallet receives {(evaluator && compareThreshold)
+                ? `${evaluator.toLowerCase().replaceAll('_', ' ')} ${compareThreshold} token of `
+                : ''}{receiveTokenSymbol}{receiveFrom ? ` from ${receiveFrom}` : ''}</p>;
+        default:
+            return <></>;
+    }
+}
+
 function SequenceTrigger() {
     const [showEditModal, setShowEditModal] = React.useState(false);
-    const [sandboxFlowData, setSandboxFlowData] = useSandboxFlowData();
+    const [sandboxFlowData, sandboxFlowDataDispatch] = React.useContext(SandboxFlowContext);
 
     // if flow data is undefined, it means user hasn't connected to wallet yet
     if (sandboxFlowData.accountAddress === undefined) {
@@ -46,9 +65,9 @@ function SequenceTrigger() {
                         defaultValue='DEFAULT'
                         label="Age"
                         onChange={(event) => {
-                            event.target.value === 'DEFAULT'
-                                ? setSandboxFlowData({ ...sandboxFlowData, trigger: undefined })
-                                : setSandboxFlowData({ ...sandboxFlowData, trigger: { triggerType: event.target.value as TriggerType } });
+                            if (event.target.value !== 'DEFAULT') {
+                                sandboxFlowDataDispatch({type: 'SET_TRIGGER', payload: { triggerType: event.target.value as TriggerType }});
+                            }
                             setShowEditModal(true);
                         }}
                     >
@@ -57,29 +76,30 @@ function SequenceTrigger() {
                         <MenuItem value={TriggerType.AMM_LP_PRICE} disabled >Uniswap LP prices...</MenuItem>
                     </Select>
 
-                    {(sandboxFlowData.trigger)
-                        && <Dialog 
-                            open={showEditModal}
-                            onClose={() => setShowEditModal(false)}
-                            aria-labelledby="modal-modal-title"
-                            aria-describedby="modal-modal-description"
-                        >
-                            <DialogTitle id="alert-dialog-title">
-                                Setup conditions when you receive funds
-                            </DialogTitle>
-                            <DialogContent>
-                                {/* <DialogContentText id="alert-dialog-description">
-                                    Let Google help apps determine location. This means sending anonymous
-                                    location data to Google, even when no apps are running.
-                                </DialogContentText> */}
-                                <EditTrigger triggerType={sandboxFlowData.trigger.triggerType} />
-                            </DialogContent>
-                            <DialogActions>
-                                <Button onClick={() => setShowEditModal(false)} autoFocus>
-                                    Close
-                                </Button>
-                            </DialogActions>
-                    </Dialog>}
+                    <VerbalizeTrigger />
+
+                    {sandboxFlowData.trigger && <Button onClick={() => setShowEditModal(true)} autoFocus>
+                        Edit
+                    </Button>}
+
+                    <Dialog
+                        open={showEditModal}
+                        onClose={() => setShowEditModal(false)}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">
+                            Setup conditions when you receive funds
+                        </DialogTitle>
+                        <DialogContent>
+                            <EditTrigger triggerType={sandboxFlowData.trigger?.triggerType} />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={() => setShowEditModal(false)} autoFocus>
+                                Close
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                 </FormControl>
             </div>
         </div>

@@ -5,6 +5,7 @@ import Container from '../components/container/Container'
 import Mezzanine from '../components/navbar/Mezzanine'
 import { Web3ReactProvider } from '@web3-react/core'
 import { Web3Provider } from '@ethersproject/providers';
+import SandboxFlowStore from '../hooks/sandbox-flow-store';
 
 
 function getLibrary(provider: any): Web3Provider {
@@ -16,20 +17,21 @@ function getLibrary(provider: any): Web3Provider {
 const Home: NextPage = () => {
     return (
         <Web3ReactProvider getLibrary={getLibrary}>
-            <>
-                <Head>
-                    <title>ETH Online Demo</title>
-                    <meta name="description" content="ETH Online Hackathon 2022 Demo" />
-                    <link rel="icon" href="/favicon.ico" />
-                </Head>
+            <SandboxFlowStore>
+                <div>
+                    <Head>
+                        <title>ETH Online Demo</title>
+                        <meta name="description" content="ETH Online Hackathon 2022 Demo" />
+                        <link rel="icon" href="/favicon.ico" />
+                    </Head>
 
-                <main className='h-screen flex flex-col'>
-                    <Mezzanine />
-                    <Container />
-                </main>
-            </>
+                    <main className='h-screen flex flex-col'>
+                        <Mezzanine />
+                        <Container />
+                    </main>
+                </div>
+            </SandboxFlowStore>
         </Web3ReactProvider>
-
     )
 };
 

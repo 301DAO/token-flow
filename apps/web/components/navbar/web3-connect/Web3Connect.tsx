@@ -3,9 +3,18 @@ import * as React from 'react';
 import ChainSelectPopover from './ChainSelectPopover';
 import WalletBalance from './WalletBalance';
 import ConnectButton from './ConnectButton';
+import { SandboxFlowContext } from '../../../hooks/sandbox-flow-store';
 
 function Web3Connect() {
+    const [sandboxFlowData, sandboxFlowDataDispatch] = React.useContext(SandboxFlowContext);
     const { account, library, chainId } = useWeb3React();
+
+    React.useEffect(() => {
+        if (!!account && !!library) {
+            sandboxFlowDataDispatch({ type: 'SET_ACCOUNT_ADDRESS', payload: account });
+        }
+    }, [account, library]); // intentionally only running on mount (make sure it's only mounted once :))
+
 
     const [chainSelectPopoverVisible, setChainSelectPopoverVisible] = React.useState(false);
 

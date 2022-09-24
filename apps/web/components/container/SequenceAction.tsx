@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { useSandboxFlowData } from '../../hooks/sandbox-flow-hooks';
+import { SandboxFlowContext } from '../../hooks/sandbox-flow-store';
+
 
 function SequenceAction (props: {}) {
-    const [sandboxFlowData, setSandboxFlowData] = useSandboxFlowData();
+    const [sandboxFlowData, sandboxFlowDataDispatch] = React.useContext(SandboxFlowContext);
 
     if (sandboxFlowData.accountAddress === undefined) {
         return <div className=' h-40 w-96 bg-neutral-100 rounded-2xl shadow border border-solid border-border-gray'>
