@@ -1,5 +1,5 @@
 import { useWeb3React } from "@web3-react/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 export enum TriggerType {
@@ -31,20 +31,21 @@ export interface ActionModel {
 }
 
 export interface FlowModel {
-    accountAddress: string;
+    accountAddress?: string;
     trigger?: TriggerModel;
     actions?: ActionModel[];
 }
 
-export function useSandboxFlowData(): [FlowModel | undefined, ((flow: FlowModel) => void) | undefined] {
+export function useSandboxFlowData(): [FlowModel, (flow: FlowModel) => void] {
+    const [sandboxFlowData, setSandboxFlowData] = useState<FlowModel>({ accountAddress: undefined });
+
     const { account, library, chainId } = useWeb3React();
 
-    if (!!account && !!library) {
-        const [sandboxFlowData, setSandboxFlowData] = useState<FlowModel>({ accountAddress: account });
-    
-        return [sandboxFlowData, setSandboxFlowData];
-    } else {
-        return [undefined, undefined];
-    }
+    useEffect(() => {
+        if (!!account && !!library) {
+            setSandboxFlowData({ ...sandboxFlowData, accountAddress: account });
+        }
+    }, [account, library]); // intentionally only running on mount (make sure it's only mounted once :))
 
+    return [sandboxFlowData, setSandboxFlowData];
 };

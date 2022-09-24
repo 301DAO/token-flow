@@ -26,7 +26,7 @@ function Container() {
             background: 'linear-gradient(90deg, #f3f3f3 20px, transparent 1%) center, linear-gradient(#f3f3f3 20px, transparent 1%) center, #b8b8b8',
             backgroundSize: '22px 22px'
         }} className='flex flex-col items-center border-b border-solid border-border-gray shadow min-w-full grow'>
-            <div className='h-32' />
+            <div className='h-10' />
             <SequenceTrigger />
             <div className='h-20 flex flex-row items-center'>
                     <img src='/down-arrow.svg' className='h-10' />

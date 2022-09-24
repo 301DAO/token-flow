@@ -4,7 +4,7 @@ import { useSandboxFlowData } from '../../hooks/sandbox-flow-hooks';
 function SequenceAction (props: {}) {
     const [sandboxFlowData, setSandboxFlowData] = useSandboxFlowData();
 
-    if (sandboxFlowData === undefined) {
+    if (sandboxFlowData.accountAddress === undefined) {
         return <div className=' h-40 w-96 bg-neutral-100 rounded-2xl shadow border border-solid border-border-gray'>
             <div className='flex flex-col ml-3 mt-3 min-h-full'>
                 <p className='text-sm font-bold text-gray-500'>Actions</p>
