@@ -6,7 +6,7 @@ import {
 } from '@web3-react/injected-connector';
 import * as React from 'react';
 import { injected } from '../../../utils/connectors';
-import { useEagerConnect, useInactiveListener } from '../../../utils/web3-provider-hooks';
+import { useEagerConnect, useInactiveListener } from '../../../hooks/web3-provider-hooks';
 import Spinner from '../../common/Spinner';
 
 
@@ -62,14 +62,6 @@ function ConnectButton(props: {}) {
                         })
                     }}
                 >
-                    <div>
-                        {activating && <Spinner />}
-                        {connected && (
-                            <span role="img" aria-label="check">
-                                ✅
-                            </span>
-                        )}
-                    </div>
                     Connect
                 </button>
             </div>

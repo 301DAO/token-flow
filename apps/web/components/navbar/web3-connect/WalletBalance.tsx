@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { useWeb3React } from '@web3-react/core';
 import { formatEther } from 'ethers/lib/utils';
-import { shortenBalance, shortenString } from '../../../utils/stringManipulation';
+import { shortenBalance, shortenString } from '../../../utils/string-manipulation';
 
 
 function WalletBalance() {
