@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import * as React from 'react';
 import { SandboxFlowContext } from '../../hooks/sandbox-flow-store';
-import { TriggerType } from '../../models/flow-model';
+import { TriggerType } from '../../models/trigger-model';
 import { shortenString } from '../../utils/string-manipulation';
 import ReceiveFunds from './triggers/ReceiveFunds';
 

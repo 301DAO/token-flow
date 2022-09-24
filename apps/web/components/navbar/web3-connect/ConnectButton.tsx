@@ -75,7 +75,7 @@ function ConnectButton(props: {}) {
                     className='bg-primary-alt rounded-lg p-1.5 px-2'
                     onClick={() => {
                         deactivate()
-                        sandboxFlowDataDispatch({ type: 'SET_ACCOUNT_ADDRESS', payload: undefined });
+                        sandboxFlowDataDispatch({ type: 'SET_ACCOUNT_ADDRESS_CHAIN_ID', payload: undefined });
                     }}
                 >
                     Disconnect

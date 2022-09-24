@@ -4,7 +4,7 @@ import * as React from 'react';
 import { ChainId } from '../../../constants/networks';
 import { TOKENS } from '../../../constants/tokens';
 import { SandboxFlowContext } from '../../../hooks/sandbox-flow-store';
-import { Evaluator, TriggerType } from '../../../models/flow-model';
+import { Evaluator, TriggerType } from '../../../models/trigger-model';
 
 
 function ReceiveFunds (props: {}) {

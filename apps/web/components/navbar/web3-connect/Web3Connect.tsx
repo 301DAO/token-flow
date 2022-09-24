@@ -10,8 +10,8 @@ function Web3Connect() {
     const { account, library, chainId } = useWeb3React();
 
     React.useEffect(() => {
-        if (!!account && !!library) {
-            sandboxFlowDataDispatch({ type: 'SET_ACCOUNT_ADDRESS', payload: account });
+        if (!!account && !!library && !!chainId) {
+            sandboxFlowDataDispatch({ type: 'SET_ACCOUNT_ADDRESS_CHAIN_ID', payload: { accountAddress: account, chainId } });
         }
     }, [account, library]); // intentionally only running on mount (make sure it's only mounted once :))
 

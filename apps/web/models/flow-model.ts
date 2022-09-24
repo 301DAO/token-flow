@@ -1,38 +1,14 @@
+import { TriggerModel } from "./trigger-model";
+import { ActionBaseModel } from "./action-model";
+import { ChainId } from "../constants/networks";
 
-export enum TriggerType {
-    RECEIVE_FUNDS = 'RECEIVE_FUNDS',
-    AMM_LP_LIQUIDITY_THRESHOLD = 'AMM_LP_LIQUIDITY_THRESHOLD',
-    AMM_LP_PRICE = 'AMM_LP_PRICE'
-}
-
-export enum Evaluator{
-    GREATER_THAN = 'GREATER_THAN',
-    LESS_THAN = 'LESS_THAN',
-    EQUALS_TO = 'EQUALS_TO'
-}
-
-export interface TriggerModel {
-    triggerType: TriggerType;
-
-    // 'RECEIVE_FUNDS' trigger
-    receiveFrom?: string;
-    receiveTokenAddress?: string;
-    receiveTokenDecimal?: number;
-    receiveTokenSymbol?: string;
-    evaluator?: Evaluator;
-    compareThreshold?: number;
-
-    // 'AMM_LP_LIQUIDITY_THRESHOLD' trigger
-
-    // 'AMM_LP_PRICE' trigger
-}
-
-export interface ActionModel {
-
-}
 
 export interface FlowModel {
     accountAddress?: string;
+    chainId?: ChainId;
     trigger?: TriggerModel;
-    actions?: ActionModel[];
+    actions: ActionBaseModel[];
+
+    // potentially can add more metadata here
+    // such as name, description, created time, modified time, etc
 }
