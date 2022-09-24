@@ -4,9 +4,10 @@ import SequenceAction from './SequenceAction';
 import ModeSelector from './ModeSelector';
 
 
-function Container(props: {}) {
+function Container() {
+
     return <div className='flex flex-col relative -top-4 z-10 pb-4 grow shadow bg-transparent min-w-full min-h-screen'>
-        <div className='grid grid-cols-3 items-center rounded-t-3xl h-16 border-b border-solid border-border-gray bg-white min-w-full shadow'>
+        <div className='grid grid-cols-3 items-center rounded-t-3xl min-h-max shrink-0 h-16 border-b border-solid border-border-gray bg-white min-w-full shadow'>
             <div className='flex flex-col ml-10'>
                 <p className='text-lg'>Sandbox</p>
                 <p className='text-xs text-slate-700'>Test out your ideas</p>
