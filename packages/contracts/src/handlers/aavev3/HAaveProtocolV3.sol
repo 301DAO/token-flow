@@ -10,9 +10,10 @@ import './IFlashLoanReceiver.sol';
 
 contract HAaveProtocolV3 is HandlerBase, IFlashLoanReceiver {
   // prettier-ignore
-  address public constant PROVIDER = 0xa97684ead0e402dC232d5A977953DF7ECBaB3CDb;
+  //mumbai testnet
+  address public constant PROVIDER = 0x5343b5bA672Ae99d627A1C87866b8E53F47Db2E6;
   // prettier-ignore
-  address public constant WMATIC = 0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270;
+  address public constant WMATIC = 0xb685400156cF3CBE8725958DeAA61436727A30c3;
   uint16 public constant REFERRAL_CODE = 56;
 
   function getContractName() public pure override returns (string memory) {

@@ -8,4 +8,5 @@ verbosity = 1
 remappings = [
   "forge-std/=./lib/forge-std/src/",
   "@openzeppelin/=./lib/openzeppelin-contracts/",
+  "@uniswap/=./lib/v3-core/contracts/"
 ]
