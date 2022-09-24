@@ -4,16 +4,17 @@ import * as React from 'react';
 import WalletBalance from './WalletBalance';
 import ConnectButton from './ConnectButton';
 import { SandboxFlowContext } from '../../../hooks/sandbox-flow-store';
-import { useAccount } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 
 function Web3Connect() {
   const [sandboxFlowData, sandboxFlowDataDispatch] = React.useContext(SandboxFlowContext);
   // const { account, library, chainId } = useWeb3React();
   const { address, isConnected } = useAccount();
+  const { chain } = useNetwork();
 
   React.useEffect(() => {
-    if (address && isConnected) {
-      sandboxFlowDataDispatch({ type: 'SET_ACCOUNT_ADDRESS', payload: address });
+    if (address && isConnected && chain && chain.id) {
+      sandboxFlowDataDispatch({ type: 'SET_ACCOUNT_ADDRESS_CHAIN_ID', payload: { accountAddress: address, chainId: chain.id } });
     }
   }, [address, isConnected]); // intentionally only running on mount (make sure it's only mounted once :))
 

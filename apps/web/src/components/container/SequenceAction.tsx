@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { SandboxFlowContext } from '../../hooks/sandbox-flow-store';
+import { ActionBaseModel } from '../../models/action-model';
 
 function SequenceAction(props: {}) {
   const [sandboxFlowData, sandboxFlowDataDispatch] = React.useContext(SandboxFlowContext);
@@ -22,6 +23,11 @@ function SequenceAction(props: {}) {
   return (
     <div className=" h-40 w-96 bg-neutral-100 rounded-2xl shadow border border-solid border-border-gray">
       <div className="flex flex-col ml-3 mt-3">
+        {sandboxFlowData.actions.map((action: ActionBaseModel, index) => {
+          return <div className='flex flex-row items-center mb-4' key={index}>
+            <p className='text-xs text-gray-500'>{action.actionType}</p>
+          </div>;
+        })}
         <p className="text-sm font-bold text-gray-500">Actions</p>
         {/* <p className='text-xs text-slate-700'>Setup multiple actions to execute after the event triggering</p> */}
       </div>

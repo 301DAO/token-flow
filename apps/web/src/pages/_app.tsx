@@ -19,7 +19,7 @@ import {
 import Head from 'next/head';
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [chain.polygon, chain.optimism, chain.polygonMumbai],
+  [chain.goerli, chain.polygon, chain.optimism, chain.polygonMumbai],
   [alchemyProvider({ apiKey: process.env.ALCHEMY_API_KEY }), publicProvider()]
 );
 

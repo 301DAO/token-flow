@@ -37,4 +37,5 @@ yarn-error.log*
 
 # turbo
 .turbo
+.turbo-cookie
 .scratch
