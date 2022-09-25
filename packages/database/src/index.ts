@@ -40,3 +40,6 @@ try {
  * ```
  */
 export const ddb = { user, rule };
+
+export * from './models';
+export * from './services';

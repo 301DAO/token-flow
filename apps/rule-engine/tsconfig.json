@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "strict": true,
     "rootDir": "src",
-    "outDir": ".dist"
+    "outDir": "dist"
   },
   "include": ["**/*.ts"]
 }

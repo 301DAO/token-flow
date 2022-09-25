@@ -1,8 +1,21 @@
-import { Client, MoneyStrategy, MoneyStrategyType } from 'ethers-client';
+import { Client } from 'ethers-client';
+import { MoneyStrategy, MoneyStrategyType } from 'internal-common';
+import { ddb } from 'database';
+import { IRule } from 'database';
+
+
 const client = new Client();
 
+const data = [];
+
+const DB_REFRESH_INTERVAL = 1000 * 60; // 1 minute
+
+// pull db everytime we get a new block
+// check if any rules get triggered in the latest block
+// if so, execute the actions based on the rule
+
 const exampleTransferStrategy: MoneyStrategy = {
-  actionType: MoneyStrategyType.TRANSFER,
+  actionType: MoneyStrategyType.TRANSFER_TO_ADDRESS,
   originationAddress: '0xDa2A186755c05D4367Bba77a2e763D31936698b4',
   destinationAddress: '0x44630Fbe483b8Ee327f6b139033E6a68d38d4A82',
   tokenInAddress: '0xA2025B15a1757311bfD68cb14eaeFCc237AF5b43',
@@ -25,6 +38,11 @@ const exampleSwapStrategy: MoneyStrategy = {
 
 const watchingAddress = '0xDa2A186755c05D4367Bba77a2e763D31936698b4';
 
+const refreshDB = async () => {
+  const rules: IRule[] = await ddb.rule.getAllRules();
+  console.log(rules);
+}
+
 const main = async () => {
   const block = await client.latestBlock();
   console.log(block);
@@ -44,11 +62,11 @@ const main = async () => {
 const demoActions = async () => {
   console.log('demoActions');
   const actions = [exampleTransferStrategy, exampleAaveDepositStrategy, exampleSwapStrategy];
-  //go through actions and execute them
+  // go through actions and execute them
   for (const action of actions) {
     let tx;
     switch (action.actionType) {
-      case MoneyStrategyType.TRANSFER:
+      case MoneyStrategyType.TRANSFER_TO_ADDRESS:
         tx = await client.executeTokenTransfer(action, 2000000);
         break;
       case MoneyStrategyType.DEPOSIT_TO_AAVE:

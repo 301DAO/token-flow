@@ -10,7 +10,7 @@
     "build": "tsc",
     "start": "node -r dotenv/config dist/index.js",
     "dev": "tsc --watch && nodemon -r dotenv/config -q --watch dist dist/index.js",
-    "clean": "rimraf .dist",
+    "clean": "rimraf dist",
     "run:file": "node -r tsconfig-paths/register --experimental-json-modules --experimental-specifier-resolution=node --loader ts-node/esm --experimental-fetch --no-warnings $npm_config_path"
   },
   "type": "module",

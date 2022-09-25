@@ -2,7 +2,7 @@ import { NonceManager } from '@ethersproject/experimental/lib/nonce-manager';
 import { ethers } from 'ethers';
 import erc20Abi from './abi/erc20.json';
 import executionAbi from './abi/execution.json';
-import { MoneyStrategy } from './action-model';
+import { MoneyStrategy } from 'internal-common';
 
 type transferActionParams = {
   token: string;
