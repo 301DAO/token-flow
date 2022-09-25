@@ -1,4 +1,4 @@
-import { Button, Card, MenuItem, Select } from '@mui/material';
+import { Button, Card, MenuItem, Select, TextField } from '@mui/material';
 import { AlertStrategy, AlertType } from 'internal-common';
 import * as React from 'react';
 
@@ -19,7 +19,7 @@ const AlertActionEdit = function () {
                 strategy.alertType || 'DEFAULT'
               }
               defaultValue="DEFAULT"
-              className="ml-4 mr-4 w-80"
+              className="w-80 mb-4"
               variant="standard"
               label="Alert type"
               required
@@ -28,6 +28,12 @@ const AlertActionEdit = function () {
               <MenuItem value={AlertType.EPNS} disabled>EPNS</MenuItem>
               <MenuItem value={AlertType.PIPEDREAM}>Pipedream Integration</MenuItem>
             </Select>
+            <TextField
+              id="alert-destination-path"
+              label="Notification delivery path (URL)"
+              variant="standard"
+              className="mx-4 w-80"
+            />
           </div>;
         })}
       </div>
