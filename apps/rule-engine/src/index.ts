@@ -2,10 +2,11 @@ import { Client } from 'ethers-client';
 import { MoneyStrategy, MoneyStrategyType } from 'internal-common';
 import { ddb } from 'database';
 import { IRule } from 'database';
+import { ethers } from 'ethers';
 
 const client = new Client();
 
-const data = [];
+let data = null;
 
 const DB_REFRESH_INTERVAL = 1000 * 60; // 1 minute
 
@@ -39,14 +40,20 @@ const watchingAddress = '0xDa2A186755c05D4367Bba77a2e763D31936698b4';
 
 const refreshDB = async () => {
   const rules: IRule[] = await ddb.rule.getAllRules();
-  console.log(rules);
-};
+  data = rules;
+}
 
 (async () => {
   const client = new Client();
-  client.subscribeToBlocks(async (block) => {
-    console.log('new block', block);
+  client.subscribeToBlocks((provider: ethers.providers.JsonRpcProvider) => async (block) => {
     await refreshDB();
+
+    // check if any rules get triggered in the latest block
+    await provider.subscribeToErc20Transfers();
+    const allTransactionsInBlock = await provider.getBlockWithTransactions(block);
+    console.log(allTransactionsInBlock);
+
+    // execute the actions based on the rules
   });
 })();
 

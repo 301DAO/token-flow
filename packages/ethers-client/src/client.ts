@@ -1,8 +1,9 @@
 import { NonceManager } from '@ethersproject/experimental/lib/nonce-manager';
-import { ethers } from 'ethers';
+import { ethers, utils } from 'ethers';
 import erc20Abi from './abi/erc20.json' assert {type: "json"};
 import executionAbi from './abi/execution.json' assert {type: "json"};
-import { ChainId, MoneyStrategy, TOKENS } from 'internal-common';
+import { ChainId, IToken, MoneyStrategy, TOKENS } from 'internal-common';
+import { hexZeroPad } from 'ethers/lib/utils';
 
 type transferActionParams = {
   token: string;
@@ -27,6 +28,8 @@ type swapAction = {
   amountIn: ethers.BigNumber;
 };
 
+const CHAIN_ID = ChainId.Goerli;
+
 export class Client {
   private readonly _provider: ethers.providers.JsonRpcProvider;
   private readonly _listenedTokenAddress: string;
@@ -44,7 +47,7 @@ export class Client {
     ) {
       throw new Error('Missing environment variables');
     }
-    this._provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
+    this._provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL, CHAIN_ID);
     this._executionWallet = new ethers.Wallet(process.env.EXECUTION_PRIVATE_KEY, this._provider);
     this._listenedTokenAddress = TOKENS.USDC.addressMap[ChainId.Goerli];
     this._executionAddress = process.env.EXECUTION_CONTRACT_ADDRESS;
@@ -56,8 +59,23 @@ export class Client {
     );
   }
 
-  public subscribeToBlocks = (cb: (blockNumber: number) => Promise<void>) => {
-    this._provider.on('block', cb);
+  public subscribeToBlocks = (cb: (provider: ethers.providers.JsonRpcProvider) => (blockNumber: number) => Promise<void>) => {
+    this._provider.on('block', cb(this._provider));
+  }
+
+  public subscribeToErc20Transfers = (token: IToken, fromAddress: string | undefined, toAddress: string | undefined, cb: (provider: ethers.providers.JsonRpcProvider) => (transfer: ethers.Event) => Promise<void>) => {
+    const tokenContract = new ethers.Contract(token.addressMap[CHAIN_ID], erc20Abi, this._provider);
+    tokenContract.on(
+      {
+        address: token.addressMap[CHAIN_ID],
+        topics: [
+          utils.id("Transfer(address,address,uint256)"),
+          (fromAddress === undefined ? null : hexZeroPad(fromAddress, 32)) as string,
+          (toAddress === undefined ? null : hexZeroPad(toAddress, 32) as string),
+        ]
+      },
+      cb(this._provider)
+    );
   }
 
   public latestBlock = (): Promise<number> => {
