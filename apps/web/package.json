@@ -16,6 +16,7 @@
     "@rainbow-me/rainbowkit-siwe-next-auth": "^0.1.3",
     "@tanstack/react-query": "^4.6.0",
     "@tanstack/react-query-devtools": "^4.6.0",
+    "@types/eslint": "^8.4.6",
     "database": "workspace:*",
     "ethers": "^5.7.1",
     "internal-common": "workspace:*",

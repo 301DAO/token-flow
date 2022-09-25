@@ -38,6 +38,7 @@ importers:
       '@rainbow-me/rainbowkit-siwe-next-auth': ^0.1.3
       '@tanstack/react-query': ^4.6.0
       '@tanstack/react-query-devtools': ^4.6.0
+      '@types/eslint': ^8.4.6
       '@types/node': 18.7.16
       '@types/react': 18.0.19
       '@types/react-dom': 18.0.6
@@ -66,6 +67,7 @@ importers:
       '@rainbow-me/rainbowkit-siwe-next-auth': 0.1.3_dm7zd6zddm7y2iol6y775c2uty
       '@tanstack/react-query': 4.6.0_dt2nlze5ntv2tpdssuoxltfoli
       '@tanstack/react-query-devtools': 4.6.0_xgqdmcumts67cibbpz4pvjvcuu
+      '@types/eslint': 8.4.6
       database: link:../../packages/database
       ethers: 5.7.1
       internal-common: link:../../packages/internal-common
@@ -97,6 +99,7 @@ importers:
       dynamoose: ^3.1.0
       esbuild: ^0.15.9
       eslint-config-custom: workspace:*
+      internal-common: workspace:*
       nodemon: ^2.0.19
       prettier: ^2.7.1
       rimraf: ^3.0.2
@@ -107,6 +110,7 @@ importers:
       ulid: ^2.3.0
     dependencies:
       dynamoose: 3.1.0
+      internal-common: link:../internal-common
     devDependencies:
       '@swc/core': 1.3.2
       '@types/node': 18.7.16
@@ -3730,6 +3734,17 @@ packages:
       '@types/node': 18.7.16
     dev: false
 
+  /@types/eslint/8.4.6:
+    resolution: {integrity: sha512-/fqTbjxyFUaYNO7VcW5g+4npmqVACz1bB7RTHYuLj+PRjw9hrCwrUXVQFpChUS0JsyEFvMZ7U/PfmvWgxJhI9g==}
+    dependencies:
+      '@types/estree': 1.0.0
+      '@types/json-schema': 7.0.11
+    dev: false
+
+  /@types/estree/1.0.0:
+    resolution: {integrity: sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==}
+    dev: false
+
   /@types/istanbul-lib-coverage/2.0.4:
     resolution: {integrity: sha512-z/QT1XN4K4KYuslS23k62yDIDLwLFkzxOuMplDtObz0+y7VqJCaO2o+SPwHCvLFZh7xazvvoor2tA/hPz9ee7g==}
     dev: false
@@ -3744,6 +3759,10 @@ packages:
     resolution: {integrity: sha512-c3mAZEuK0lvBp8tmuL74XRKn1+y2dcwOUpH7x4WrF6gk1GIgiluDRgMYQtw2OFcBvAJWlt6ASU3tSqxp0Uu0Aw==}
     dependencies:
       '@types/istanbul-lib-report': 3.0.0
+    dev: false
+
+  /@types/json-schema/7.0.11:
+    resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
     dev: false
 
   /@types/json5/0.0.29:

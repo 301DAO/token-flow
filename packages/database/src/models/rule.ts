@@ -1,37 +1,32 @@
 import dynamoose from 'dynamoose';
 import { Item } from 'dynamoose/dist/Item';
+import type { JSONObject } from '../utilities';
 
 export interface IRule {
-  id: string;
-  userId: string;
-  name: string;
-  description: string;
-  rules: Array<any>;
+  accountAddress: string;
+  rules: Array<{
+    id: string;
+    rule: JSONObject;
+  }>;
 }
 
 export class Rule extends Item implements IRule {
-  id: string;
-  userId: string;
-  name: string;
-  description: string;
-  rules: Array<any>;
+  accountAddress: string;
+  rules: Array<{
+    id: string;
+    rule: JSONObject;
+  }>;
 }
 
 export const ruleSchema = new dynamoose.Schema(
   {
-    id: String,
-    userId: String,
-    name: String,
-    description: String,
+    accountAddress: { type: String, hashKey: true },
     rules: {
       type: Array,
       schema: [
         {
-          type: Object,
-          schema: {
-            id: String,
-            rule: String,
-          },
+          id: { type: String, required: true },
+          rule: Object,
         },
       ],
     },
