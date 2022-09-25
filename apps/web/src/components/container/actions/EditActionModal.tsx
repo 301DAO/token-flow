@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, MenuItem, Select } from '@mui/material';
-import { ActionBaseModel, ActionType } from 'internal-common';
+import { ActionBaseModel, ActionType, AlertActionModel, AlertStrategy } from 'internal-common';
 import { SandboxFlowContext } from '../../../hooks/sandbox-flow-store';
 import AlertActionEdit from './AlertActionEdit';
 import MoneyActionEdit from './MoneyActionEdit';
@@ -80,7 +80,20 @@ const EditActionModal = function ({ showEditModal, setShowEditModal, actionIndex
           </MenuItem>}
         </Select>
 
-        {action?.actionType === ActionType.ALERT_ACTION && <AlertActionEdit />}
+        {action?.actionType === ActionType.ALERT_ACTION && <AlertActionEdit
+          strategies={(action as AlertActionModel).subActions || []}
+          setStrategies={(strategies: AlertStrategy[]) => {
+            if (actionIndex !== undefined && action !== undefined) {
+              sandboxFlowDataDispatch({
+                type: 'EDIT_ACTION',
+                payload: ({
+                  ...action,
+                  subActions: strategies
+                } as AlertActionModel),
+                index: actionIndex
+              });
+            }
+          }} />}
         {action?.actionType === ActionType.MONEY_ACTION && <MoneyActionEdit />}
       </FormControl>
     </DialogContent>

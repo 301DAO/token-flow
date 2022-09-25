@@ -1,23 +1,41 @@
-import { Button, Card, MenuItem, Select, TextField } from '@mui/material';
+import { Button, MenuItem, Select, TextField } from '@mui/material';
 import { AlertStrategy, AlertType } from 'internal-common';
 import * as React from 'react';
 
 
-const AlertActionEdit = function () {
-  const [strategies, setStrategies] = React.useState<AlertStrategy[]>([]);
+interface AlertActionEditProps {
+  strategies: AlertStrategy[];
+  setStrategies: (strategies: AlertStrategy[]) => void;
+}
+
+const AlertActionEdit = function (props: AlertActionEditProps) {
+  const { strategies, setStrategies } = props;
+
+  console.log('strategies', strategies);
 
   return <div className='flex flex-col'>
     <div className='flex flex-row items-center'>
-      <div className='rounded-lg px-2 py-5 shadow my-5 mx-2'>Money received</div>
+
+      {strategies.length > 0 && <div className='rounded-lg px-2 py-5 shadow my-5 mx-2 bg-primary-bg'>Money received</div>}
       {strategies.length > 0 && <div>➡️</div>}
       <div className='flex flex-col'>
         {strategies.map((strategy, index) => {
-          return <div id={`node-connect-${index}`} className='mx-2 my-1 rounded-lg px-5 py-5 shadow'>
+          return <div id={`node-connect-${index}`} className='mx-2 my-1 rounded-lg px-5 py-5 shadow bg-gray-200'>
             <Select
               id="alert-type"
               value={
                 strategy.alertType || 'DEFAULT'
               }
+              onChange={(event) => {
+                if (event.target.value !== 'DEFAULT') {
+                  setStrategies(strategies.map((strat, strategyIndex) => {
+                    if (strategyIndex === index) {
+                      return { ...strat, alertType: event.target.value as AlertType };
+                    }
+                    return strat;
+                  }));
+                }
+              }}
               defaultValue="DEFAULT"
               className="w-80 mb-4"
               variant="standard"
@@ -25,15 +43,30 @@ const AlertActionEdit = function () {
               required
             >
               <MenuItem value="DEFAULT"> </MenuItem>
-              <MenuItem value={AlertType.EPNS} disabled>EPNS</MenuItem>
+              <MenuItem value={AlertType.EPNS} disabled>EPNS (Work in progress)</MenuItem>
               <MenuItem value={AlertType.PIPEDREAM}>Pipedream Integration</MenuItem>
             </Select>
             <TextField
               id="alert-destination-path"
-              label="Notification delivery path (URL)"
+              // label="Notification delivery path (URL)"
               variant="standard"
+              placeholder='Notification delivery path (URL)'
+              value={strategy.destinationPath || ''}
               className="mx-4 w-80"
+              onChange={(event) => {
+                setStrategies(strategies.map((strat, strategyIndex) => {
+                  if (strategyIndex === index) {
+                    return { ...strat, destinationPath: event.target.value };
+                  }
+                  return strat;
+                }));
+              }}
             />
+            <div className='flex flex-row-reverse mt-2'>
+              <Button variant='outlined' color='error' size='small' onClick={() => {
+                setStrategies(strategies.filter((_, i) => i !== index));
+              }}>Remove</Button>
+            </div>
           </div>;
         })}
       </div>
@@ -47,7 +80,7 @@ const AlertActionEdit = function () {
       setStrategies([...strategies, { alertType: AlertType.PIPEDREAM, message: 'placeholder', destinationPath: 'placeholder' }]);
       }}
     >
-      Add new notification destination
+      New
     </Button>
   </div>;
 }

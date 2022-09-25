@@ -90,7 +90,7 @@ function SequenceTrigger() {
               id="trigger-select"
               value={sandboxFlowData.trigger ? sandboxFlowData.trigger.triggerType : 'DEFAULT'}
               defaultValue="DEFAULT"
-              label="Age"
+              label="Trigger"
               onChange={(event) => {
                 if (event.target.value !== 'DEFAULT') {
                   sandboxFlowDataDispatch({
