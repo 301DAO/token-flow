@@ -13,6 +13,7 @@ try {
   const config = new dynamoose.aws.ddb.DynamoDB({
     region: process.env.MY_AWS_REGION,
     credentials: {
+
       accessKeyId: process.env.MY_AWS_ACCESS_KEY_ID,
       secretAccessKey: process.env.MY_AWS_SECRET_ACCESS_KEY,
     },
