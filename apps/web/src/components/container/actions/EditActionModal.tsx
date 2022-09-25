@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, MenuItem, Select } from '@mui/material';
-import { ActionBaseModel, ActionType, AlertActionModel, AlertStrategy } from 'internal-common';
+import { ActionBaseModel, ActionType, AlertActionModel, AlertStrategy, MoneyActionModel, MoneyStrategy } from 'internal-common';
 import { SandboxFlowContext } from '../../../hooks/sandbox-flow-store';
 import AlertActionEdit from './AlertActionEdit';
 import MoneyActionEdit from './MoneyActionEdit';
@@ -94,7 +94,20 @@ const EditActionModal = function ({ showEditModal, setShowEditModal, actionIndex
               });
             }
           }} />}
-        {action?.actionType === ActionType.MONEY_ACTION && <MoneyActionEdit />}
+        {action?.actionType === ActionType.MONEY_ACTION && <MoneyActionEdit
+          strategies={(action as MoneyActionModel).subActions || []}
+          setStrategies={(strategies: MoneyStrategy[]) => {
+            if (actionIndex !== undefined && action !== undefined) {
+              sandboxFlowDataDispatch({
+                type: 'EDIT_ACTION',
+                payload: ({
+                  ...action,
+                  subActions: strategies
+                } as MoneyActionModel),
+                index: actionIndex
+              });
+            }
+          }} />}
       </FormControl>
     </DialogContent>
     <DialogActions>
@@ -119,7 +132,7 @@ const EditActionModal = function ({ showEditModal, setShowEditModal, actionIndex
         }}
         autoFocus
       >
-        Looks good!
+        Save
       </Button>
     </DialogActions>
   </Dialog>;
