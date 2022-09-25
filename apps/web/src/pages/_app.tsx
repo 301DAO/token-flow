@@ -2,6 +2,7 @@ import * as React from 'react';
 import '../styles/globals.css';
 import '@rainbow-me/rainbowkit/styles.css';
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
 import {
   RainbowKitProvider,
   getDefaultWallets,
@@ -16,7 +17,9 @@ import {
   RainbowKitSiweNextAuthProvider,
   GetSiweMessageOptions,
 } from '@rainbow-me/rainbowkit-siwe-next-auth';
-import Head from 'next/head';
+
+import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const { chains, provider, webSocketProvider } = configureChains(
   [chain.goerli, chain.polygon, chain.optimism, chain.polygonMumbai],
@@ -53,6 +56,7 @@ const getSiweMessageOptions: GetSiweMessageOptions = () => ({
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isSSR, setIsSSR] = React.useState(true);
+  const [queryClient] = React.useState(() => new QueryClient());
 
   React.useEffect(() => {
     setIsSSR(false);
@@ -66,15 +70,20 @@ export default function App({ Component, pageProps }: AppProps) {
           <meta name="description" content="ETH Online Hackathon 2022 Demo" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <SessionProvider refetchInterval={0} session={(pageProps as any).session}>
-          <WagmiConfig client={wagmiClient}>
-            <RainbowKitSiweNextAuthProvider getSiweMessageOptions={getSiweMessageOptions}>
-              <RainbowKitProvider appInfo={demoAppInfo} chains={chains}>
-                <Component {...pageProps} />
-              </RainbowKitProvider>
-            </RainbowKitSiweNextAuthProvider>
-          </WagmiConfig>
-        </SessionProvider>
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={(pageProps as any).dehydratedState}>
+            <SessionProvider refetchInterval={0} session={(pageProps as any).session}>
+              <WagmiConfig client={wagmiClient}>
+                <RainbowKitSiweNextAuthProvider getSiweMessageOptions={getSiweMessageOptions}>
+                  <RainbowKitProvider appInfo={demoAppInfo} chains={chains}>
+                    <Component {...pageProps} />
+                  </RainbowKitProvider>
+                </RainbowKitSiweNextAuthProvider>
+              </WagmiConfig>
+            </SessionProvider>
+          </Hydrate>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
       </>
     )
   );

@@ -36,6 +36,8 @@ importers:
       '@mui/material': ^5.10.6
       '@rainbow-me/rainbowkit': ^0.6.1
       '@rainbow-me/rainbowkit-siwe-next-auth': ^0.1.3
+      '@tanstack/react-query': ^4.6.0
+      '@tanstack/react-query-devtools': ^4.6.0
       '@types/node': 18.7.16
       '@types/react': 18.0.19
       '@types/react-dom': 18.0.6
@@ -62,6 +64,8 @@ importers:
       '@mui/material': 5.10.6_z3anqdnsksrxkpmauxm24cpruu
       '@rainbow-me/rainbowkit': 0.6.1_2kdgxgip5y2sucmr2nbmv2snv4
       '@rainbow-me/rainbowkit-siwe-next-auth': 0.1.3_dm7zd6zddm7y2iol6y775c2uty
+      '@tanstack/react-query': 4.6.0_dt2nlze5ntv2tpdssuoxltfoli
+      '@tanstack/react-query-devtools': 4.6.0_xgqdmcumts67cibbpz4pvjvcuu
       database: link:../../packages/database
       ethers: 5.7.1
       internal-common: link:../../packages/internal-common
@@ -3639,6 +3643,13 @@ packages:
     dev: true
     optional: true
 
+  /@tanstack/match-sorter-utils/8.1.1:
+    resolution: {integrity: sha512-IdmEekEYxQsoLOR0XQyw3jD1GujBpRRYaGJYQUw1eOT1eUugWxdc7jomh1VQ1EKHcdwDLpLaCz/8y4KraU4T9A==}
+    engines: {node: '>=12'}
+    dependencies:
+      remove-accents: 0.4.2
+    dev: false
+
   /@tanstack/query-core/4.6.0:
     resolution: {integrity: sha512-8b+vwooh8b4z1bIT3Ca7OVSyARM5JNbXi6F+g5VLYiflRd0AtJ+koqhin7UGhR11bbypmzVRKllWHwexWjKjDg==}
     dev: false
@@ -3650,6 +3661,20 @@ packages:
     transitivePeerDependencies:
       - '@tanstack/query-core'
       - '@tanstack/react-query'
+    dev: false
+
+  /@tanstack/react-query-devtools/4.6.0_xgqdmcumts67cibbpz4pvjvcuu:
+    resolution: {integrity: sha512-utuDpgHBNcb4UsszWqOXh3maj/FqgyccOpuTEdBdB0Ffl2T9bckCgWt3cFsVdGcGi6QsotT/qXAsZxC8vKAjQA==}
+    peerDependencies:
+      '@tanstack/react-query': 4.6.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@tanstack/match-sorter-utils': 8.1.1
+      '@tanstack/react-query': 4.6.0_dt2nlze5ntv2tpdssuoxltfoli
+      react: 18.1.0
+      react-dom: 18.2.0_react@18.1.0
+      use-sync-external-store: 1.2.0_react@18.1.0
     dev: false
 
   /@tanstack/react-query-persist-client/4.6.0_vjgfqgqehngn5vyflbeds3lszq:
@@ -9141,6 +9166,10 @@ packages:
     hasBin: true
     dependencies:
       jsesc: 0.5.0
+    dev: false
+
+  /remove-accents/0.4.2:
+    resolution: {integrity: sha512-7pXIJqJOq5tFgG1A2Zxti3Ht8jJF337m4sowbuHsW30ZnkQFnDzy9qBNhgzX8ZLW4+UBcXiiR7SwR6pokHsxiA==}
     dev: false
 
   /repeat-element/1.1.4:
