@@ -60,7 +60,7 @@ export interface MoneyStrategy {
 
 export interface AlertStrategy {
     alertType: AlertType;
-    message: string;
+    message?: string;
     title?: string;
     destinationPath: string;
 

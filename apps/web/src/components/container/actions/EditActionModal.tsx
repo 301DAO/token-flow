@@ -39,16 +39,19 @@ const EditActionModal = function ({ showEditModal, setShowEditModal, actionIndex
     aria-describedby="modal-description"
   >
     <DialogTitle id="alert-dialog-title">
-      Setup conditions when you receive funds
+      What to do when conditions above are met
     </DialogTitle>
     <DialogContent className='h-80'>
       <FormControl>
         <Select
+          className='w-80'
+          variant="standard"
           labelId="action-type-select"
           id="action-type-select"
           value={action?.actionType || 'DEFAULT'}
           defaultValue="DEFAULT"
           label="Action type"
+
           onChange={(event) => {
             if (event.target.value !== 'DEFAULT') {
               setAction({
