@@ -11,10 +11,10 @@ console.log('node env', process.env.NODE_ENV);
 try {
   // if (process.env.NODE_ENV === 'production') {
   const config = new dynamoose.aws.ddb.DynamoDB({
-    region: process.env.AWS_REGION,
+    region: process.env.MY_AWS_REGION,
     credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      accessKeyId: process.env.MY_AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.MY_AWS_SECRET_ACCESS_KEY,
     },
   });
   dynamoose.aws.ddb.set(config);
