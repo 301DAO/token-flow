@@ -22,15 +22,11 @@ export function getAuthOptions(req: IncomingMessage): NextAuthOptions {
     CredentialsProvider({
       async authorize(credentials) {
         try {
-          const siwe = new SiweMessage(
-            JSON.parse(credentials?.message || '{}')
-          );
+          const siwe = new SiweMessage(JSON.parse(credentials?.message || '{}'));
 
           const nextAuthUrl =
             process.env.NEXTAUTH_URL ||
-            (process.env.VERCEL_URL
-              ? `https://${process.env.VERCEL_URL}`
-              : null);
+            (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null);
           if (!nextAuthUrl) {
             return null;
           }
@@ -99,8 +95,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const isDefaultSigninPage =
-    req.method === 'GET' &&
-    req.query.nextauth.find(value => value === 'signin');
+    req.method === 'GET' && req.query.nextauth.find((value) => value === 'signin');
 
   // Hide Sign-In with Ethereum from default sign page
   if (isDefaultSigninPage) {

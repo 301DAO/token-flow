@@ -10,12 +10,17 @@ export async function createRules({
 }): Promise<IRule> {
   try {
     const newRules = await ruleModel.create({
-      accountAddress,
-      rules: rules.map(rule => ({ id: uniqueID(), rule })),
+      id: accountAddress,
+      rules: rules.map(rule => ({
+        id: uniqueID(),
+        rule: rule,
+      })),
     });
     return newRules;
   } catch (error) {
-    console.log('error in createRules(): ', { error });
+    console.log('error in createRules(): ', {
+      error: JSON.stringify(error, null, 2),
+    });
     throw new Error('error in createRules(): ', { cause: error });
   }
 }
@@ -24,7 +29,8 @@ export async function getRulesByAddress(
   accountAddress: string
 ): Promise<IRule> {
   try {
-    const rule = await ruleModel.get({ accountAddress });
+    const rule = await ruleModel.get(accountAddress);
+    console.log('rule: ', rule);
     return rule;
   } catch (error) {
     console.log('error in getRulesByAddress(): ', { error });
@@ -33,6 +39,6 @@ export async function getRulesByAddress(
 }
 
 export async function getAllRules(): Promise<IRule[]> {
-  const rules = await ruleModel.query().exec();
+  const rules = await ruleModel.scan().exec();
   return rules;
 }

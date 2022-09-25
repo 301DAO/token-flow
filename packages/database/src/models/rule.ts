@@ -3,7 +3,7 @@ import { Item } from 'dynamoose/dist/Item';
 import type { JSONObject } from '../utilities';
 
 export interface IRule {
-  accountAddress: string;
+  id: string;
   rules: Array<{
     id: string;
     rule: JSONObject;
@@ -11,7 +11,7 @@ export interface IRule {
 }
 
 export class Rule extends Item implements IRule {
-  accountAddress: string;
+  id: string;
   rules: Array<{
     id: string;
     rule: JSONObject;
@@ -20,18 +20,22 @@ export class Rule extends Item implements IRule {
 
 export const ruleSchema = new dynamoose.Schema(
   {
-    accountAddress: { type: String, hashKey: true },
+    id: String,
     rules: {
       type: Array,
+
       schema: [
         {
-          id: { type: String, required: true },
-          rule: Object,
+          type: Object,
+          schema: {
+            id: String,
+            rule: Object,
+          },
         },
       ],
     },
   },
-  { timestamps: true }
+  { timestamps: true, saveUnknown: true }
 );
 
 export const ruleModel = dynamoose.model<Rule>('Rule', ruleSchema);
