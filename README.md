@@ -1,6 +1,6 @@
-# Graph Flow
+# Token Flow
 
-Graph flow lets you create zapier like automation flows. We currently support Aave with more integrations coming soon.
+Token flow lets you create zapier like automation flows for your income. We currently support Aave and Uniswap with more integrations coming soon.
 
 ## Contributing
 
