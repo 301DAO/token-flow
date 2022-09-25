@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import * as React from 'react';
 import { SandboxFlowContext } from '../../hooks/sandbox-flow-store';
 import { ActionBaseModel } from 'internal-common';
-import AddActionModal from './actions/EditActionModal';
+import EditActionModal from './actions/EditActionModal';
 
 function SequenceAction(props: {}) {
   const [sandboxFlowData, sandboxFlowDataDispatch] = React.useContext(SandboxFlowContext);
@@ -53,7 +53,7 @@ function SequenceAction(props: {}) {
         </div>}
       </div>
 
-      <AddActionModal showEditModal={showEditModal} setShowEditModal={setShowEditModal} actionIndex={currentDisplayActionIndex} />
+      <EditActionModal showEditModal={showEditModal} setShowEditModal={setShowEditModal} actionIndex={currentDisplayActionIndex} />
     </div>
   );
 }

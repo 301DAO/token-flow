@@ -31,9 +31,13 @@ const EditActionModal = function ({ showEditModal, setShowEditModal, actionIndex
   }, [actionIndex, sandboxFlowData.actions]);
 
   return <Dialog
-    // className='h-96'
+    PaperProps={{
+      sx: {
+        height: "85%",
+        minWidth: '48%'
+      }
+    }}
     open={showEditModal}
-    fullWidth
     onClose={() => setShowEditModal(false)}
     aria-labelledby='edit-modal'
     aria-describedby="modal-description"
