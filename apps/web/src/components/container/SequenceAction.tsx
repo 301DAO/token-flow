@@ -9,14 +9,14 @@ function SequenceAction(props: {}) {
   const [showEditModal, setShowEditModal] = React.useState(false);
   const [currentDisplayActionIndex, setCurrentDisplayActionIndex] = React.useState<number | undefined>(undefined);
 
-  if (sandboxFlowData.accountAddress === undefined) {
+  if (sandboxFlowData.accountAddress === undefined || sandboxFlowData.trigger === undefined) {
     return (
-      <div className=" h-40 w-96 bg-neutral-100 rounded-2xl shadow border border-solid border-border-gray">
+      <div className="h-40 w-96 bg-neutral-100 rounded-2xl shadow border border-solid border-border-gray">
         <div className="flex flex-col ml-3 mt-3 min-h-full">
           <p className="text-sm font-bold text-gray-500">Actions</p>
           <div className="flex flex-col items-center">
             <div className="flex flex-row items-center">
-              <p>...</p>
+              <p className='text-sm text-rose-800 mt-10'>Connect wallet or configure a trigger first</p>
             </div>
           </div>
         </div>

@@ -59,10 +59,10 @@ export interface MoneyStrategy {
 }
 
 export interface AlertStrategy {
-  actionType: AlertType;
-  message: string;
-  title?: string;
-  destinationPath: string;
+    alertType: AlertType;
+    message: string;
+    title?: string;
+    destinationPath: string;
 
   // optional (not used)
   // deliveryCadence?: 'DAILY' | 'IMMEDIATELY';

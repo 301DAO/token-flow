@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, MenuItem, Select } from '@mui/material';
 import { ActionBaseModel, ActionType } from 'internal-common';
 import { SandboxFlowContext } from '../../../hooks/sandbox-flow-store';
+import AlertActionEdit from './AlertActionEdit';
+import MoneyActionEdit from './MoneyActionEdit';
 
 
 interface EditActionModalProps {
@@ -39,8 +41,8 @@ const EditActionModal = function ({ showEditModal, setShowEditModal, actionIndex
     <DialogTitle id="alert-dialog-title">
       Setup conditions when you receive funds
     </DialogTitle>
-    <DialogContent>
-      <FormControl className="w-60">
+    <DialogContent className='h-80'>
+      <FormControl>
         <Select
           labelId="action-type-select"
           id="action-type-select"
@@ -74,6 +76,9 @@ const EditActionModal = function ({ showEditModal, setShowEditModal, actionIndex
             Transfer / Swap / Yield Deposit
           </MenuItem>}
         </Select>
+
+        {action?.actionType === ActionType.ALERT_ACTION && <AlertActionEdit />}
+        {action?.actionType === ActionType.MONEY_ACTION && <MoneyActionEdit />}
       </FormControl>
     </DialogContent>
     <DialogActions>
