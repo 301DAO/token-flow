@@ -47,17 +47,17 @@ const MoneyActionEdit = function (props: MoneyActionEditProps) {
                   required
                 >
                   <MenuItem value="DEFAULT"> </MenuItem>
+                  <MenuItem value={MoneyStrategyType.TRANSFER_TO_ADDRESS}>Transfer to an address</MenuItem>
                   <MenuItem value={MoneyStrategyType.DEPOSIT_TO_AAVE}>Deposit to AAVE</MenuItem>
                   <MenuItem value={MoneyStrategyType.SWAP_ON_UNISWAP}>Swap on UNI</MenuItem>
-                  <MenuItem value={MoneyStrategyType.TRANSFER_TO_ADDRESS}>Transfer to an address</MenuItem>
                 </Select>
-                <TextField
-                  id="alert-destination-path"
+                {(strategy.actionType === MoneyStrategyType.TRANSFER_TO_ADDRESS || strategy.actionType === MoneyStrategyType.SWAP_ON_UNISWAP) && <TextField
+                  id="destination-address-field"
                   // label="Notification delivery path (URL)"
                   variant="standard"
                   placeholder='Destination address'
                   value={strategy.destinationAddress || ''}
-                  className="mx-4 w-80"
+                  className="mx-4 mb-10 w-80"
                   onChange={(event) => {
                     setStrategies(strategies.map((strat, strategyIndex) => {
                       if (strategyIndex === index) {
@@ -66,7 +66,32 @@ const MoneyActionEdit = function (props: MoneyActionEditProps) {
                       return strat;
                     }));
                   }}
-                />
+                />}
+                {(strategy.actionType === MoneyStrategyType.SWAP_ON_UNISWAP || strategy.actionType === MoneyStrategyType.DEPOSIT_TO_AAVE) && <TextField
+                  id="token-in-address-field"
+                  // label="Notification delivery path (URL)"
+                  variant="standard"
+                  disabled
+                  placeholder='Token in address'
+                  value={`Token in: ${sandboxFlowData.trigger?.receiveTokenSymbol || ''}`}
+                  className="mx-4 mt-8 w-80"
+                />}
+                {(strategy.actionType === MoneyStrategyType.SWAP_ON_UNISWAP) && <TextField
+                  id="token-out-address-field"
+                  // label="Notification delivery path (URL)"
+                  variant="standard"
+                  placeholder='Token out address'
+                  value={strategy.tokenOutAddress || ''}
+                  className="mx-4 mt-8 w-80"
+                  onChange={(event) => {
+                    setStrategies(strategies.map((strat, strategyIndex) => {
+                      if (strategyIndex === index) {
+                        return { ...strat, tokenOutAddress: event.target.value };
+                      }
+                      return strat;
+                    }));
+                  }}
+                />}
                 <div className='flex flex-row-reverse mt-2'>
                   <Button variant='outlined' color='error' size='small' onClick={() => {
                     setStrategies(strategies.filter((_, i) => i !== index));
@@ -90,7 +115,7 @@ const MoneyActionEdit = function (props: MoneyActionEditProps) {
           actionType: MoneyStrategyType.TRANSFER_TO_ADDRESS,
           originationAddress: sandboxFlowData.accountAddress || '',
           destinationAddress: '',
-          tokenInAddress: ''
+          tokenInAddress: sandboxFlowData.trigger?.receiveTokenAddress || '',
         }]);
       }}
     >
