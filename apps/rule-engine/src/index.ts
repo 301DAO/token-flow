@@ -42,53 +42,61 @@ const refreshDB = async () => {
   console.log(rules);
 };
 
-const main = async () => {
-  const block = await client.latestBlock();
-  console.log(block);
-  const owner = await client.getExecutionOwner();
-  console.log(owner);
-  const balance = await client.getBalanceOf('0x34094f3B3969597eaCb67157D44c3094dDceFBaE');
-  console.log(balance.toString());
-
-  client.listenForTransfer(async (from, to, amount) => {
-    console.log(`Transfer from ${from} to ${to} of ${amount.toString()}`);
-    if (to === watchingAddress) {
-      await demoActions();
-    }
+(async () => {
+  const client = new Client();
+  client.subscribeToBlocks(async (block) => {
+    console.log('new block', block);
+    await refreshDB();
   });
-};
+})();
 
-const demoActions = async () => {
-  console.log('demoActions');
-  const actions = [exampleTransferStrategy, exampleAaveDepositStrategy, exampleSwapStrategy];
-  // go through actions and execute them
-  for (const action of actions) {
-    let tx;
-    switch (action.actionType) {
-      case MoneyStrategyType.TRANSFER_TO_ADDRESS:
-        tx = await client.executeTokenTransfer(action, 2000000);
-        break;
-      case MoneyStrategyType.DEPOSIT_TO_AAVE:
-        tx = await client.executeAaveDeposit(action, 2000000);
-        break;
-      case MoneyStrategyType.SWAP_ON_UNISWAP:
-        tx = await client.executeSwap(action, 2000000);
-        break;
-      default:
-        console.log('Unknown action type');
-    }
-    if (!tx) continue;
+// const main = async () => {
+//   const block = await client.latestBlock();
+//   console.log(block);
+//   const owner = await client.getExecutionOwner();
+//   console.log(owner);
+//   const balance = await client.getBalanceOf('0x34094f3B3969597eaCb67157D44c3094dDceFBaE');
+//   console.log(balance.toString());
 
-    console.log(`Submitted tx ${tx.hash}`);
-    const result = await tx.wait();
-    console.log(
-      `Tx ${tx.hash} confirmed in block ${result.blockNumber} with status ${result.status}`
-    );
-    if (result.status === 0) {
-      throw new Error(`Tx ${tx.hash} reverted`);
-    }
-  }
-};
+//   client.listenForTransfer(async (from, to, amount) => {
+//     console.log(`Transfer from ${from} to ${to} of ${amount.toString()}`);
+//     if (to === watchingAddress) {
+//       await demoActions();
+//     }
+//   });
+// };
 
-main();
-export {};
+// const demoActions = async () => {
+//   console.log('demoActions');
+//   const actions = [exampleTransferStrategy, exampleAaveDepositStrategy, exampleSwapStrategy];
+//   // go through actions and execute them
+//   for (const action of actions) {
+//     let tx;
+//     switch (action.actionType) {
+//       case MoneyStrategyType.TRANSFER_TO_ADDRESS:
+//         tx = await client.executeTokenTransfer(action, 2000000);
+//         break;
+//       case MoneyStrategyType.DEPOSIT_TO_AAVE:
+//         tx = await client.executeAaveDeposit(action, 2000000);
+//         break;
+//       case MoneyStrategyType.SWAP_ON_UNISWAP:
+//         tx = await client.executeSwap(action, 2000000);
+//         break;
+//       default:
+//         console.log('Unknown action type');
+//     }
+//     if (!tx) continue;
+
+//     console.log(`Submitted tx ${tx.hash}`);
+//     const result = await tx.wait();
+//     console.log(
+//       `Tx ${tx.hash} confirmed in block ${result.blockNumber} with status ${result.status}`
+//     );
+//     if (result.status === 0) {
+//       throw new Error(`Tx ${tx.hash} reverted`);
+//     }
+//   }
+// };
+
+// main();
+// export {};

@@ -1,8 +1,8 @@
 import { NonceManager } from '@ethersproject/experimental/lib/nonce-manager';
 import { ethers } from 'ethers';
-import erc20Abi from './abi/erc20.json';
-import executionAbi from './abi/execution.json';
-import { MoneyStrategy } from 'internal-common';
+import erc20Abi from './abi/erc20.json' assert {type: "json"};
+import executionAbi from './abi/execution.json' assert {type: "json"};
+import { ChainId, MoneyStrategy, TOKENS } from 'internal-common';
 
 type transferActionParams = {
   token: string;
@@ -46,7 +46,7 @@ export class Client {
     }
     this._provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
     this._executionWallet = new ethers.Wallet(process.env.EXECUTION_PRIVATE_KEY, this._provider);
-    this._listenedTokenAddress = process.env.LISTENED_TOKEN_ADDRESS;
+    this._listenedTokenAddress = TOKENS.USDC.addressMap[ChainId.Goerli];
     this._executionAddress = process.env.EXECUTION_CONTRACT_ADDRESS;
     this._tokenContract = new ethers.Contract(this._listenedTokenAddress, erc20Abi, this._provider);
     this._executionContract = new ethers.Contract(
@@ -54,6 +54,10 @@ export class Client {
       executionAbi,
       new NonceManager(this._executionWallet)
     );
+  }
+
+  public subscribeToBlocks = (cb: (blockNumber: number) => Promise<void>) => {
+    this._provider.on('block', cb);
   }
 
   public latestBlock = (): Promise<number> => {
