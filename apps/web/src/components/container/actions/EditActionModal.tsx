@@ -31,7 +31,7 @@ const EditActionModal = function ({ showEditModal, setShowEditModal, actionIndex
   }, [actionIndex, sandboxFlowData.actions]);
 
   return <Dialog
-    // className='w-96'
+    // className='h-96'
     open={showEditModal}
     fullWidth
     onClose={() => setShowEditModal(false)}
@@ -41,8 +41,8 @@ const EditActionModal = function ({ showEditModal, setShowEditModal, actionIndex
     <DialogTitle id="alert-dialog-title">
       What to do when conditions above are met
     </DialogTitle>
-    <DialogContent className='h-80'>
-      <FormControl>
+    <DialogContent className='h-96'>
+      <FormControl className='h-96'>
         <Select
           className='w-80'
           variant="standard"

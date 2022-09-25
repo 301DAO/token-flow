@@ -25,7 +25,7 @@ function SequenceAction(props: {}) {
   }
 
   return (
-    <div className=" h-40 w-96 bg-neutral-100 rounded-2xl shadow border border-solid border-border-gray">
+    <div className="w-96 bg-neutral-100 rounded-2xl shadow border border-solid border-border-gray">
       <div className="flex flex-col ml-3 mt-3 min-h-full">
         <p className="text-sm font-bold text-gray-500 mb-8">Actions</p>
         {sandboxFlowData.actions.map((action: ActionBaseModel, index) => {
