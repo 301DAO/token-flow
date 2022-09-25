@@ -6,12 +6,10 @@ import { shortenBalance, shortenString } from '../../../utils/string-manipulatio
 
 function WalletBalance() {
   // const { account, library, chainId } = useWeb3React();
-
   // const [balance, setBalance] = React.useState();
   // React.useEffect((): any => {
   //   if (!!account && !!library) {
   //     let stale = false;
-
   //     library
   //       .getBalance(account)
   //       .then((balance: any) => {
@@ -24,14 +22,12 @@ function WalletBalance() {
   //           setBalance(undefined);
   //         }
   //       });
-
   //     return () => {
   //       stale = true;
   //       setBalance(undefined);
   //     };
   //   }
   // }, [account, library, chainId]); // ensures refresh if referential identity of library doesn't change across chainIds
-
   // if (!!account && !!library) {
   //   return (
   //     <div className="flex flex-row rounded-lg bg-white border-white mr-8 items-center">

@@ -17,13 +17,6 @@ export async function createRules({
       })),
     });
     await newRules.save();
-    // const newRules = await ruleModel.create({
-    //   id: accountAddress,
-    //   rules: rules.map(rule => ({
-    //     id: uniqueID(),
-    //     rule: rule,
-    //   })),
-    // });
     return newRules;
   } catch (error) {
     console.log('error in createRules(): ', {

@@ -46,6 +46,7 @@ importers:
       '@types/node': 18.7.16
       '@types/react': 18.0.19
       '@types/react-dom': 18.0.6
+      abitype: ^0.1.3
       autoprefixer: ^10.4.11
       database: workspace:*
       eslint: 8.23.1
@@ -65,15 +66,6 @@ importers:
       typescript: 4.8.3
       wagmi: ^0.6.7
     dependencies:
-<<<<<<< HEAD
-      '@emotion/react': 11.10.4_hcuykvjgjaclfjj4ynqvioedoi
-      '@emotion/styled': 11.10.4_hgii5ivx4ovccbb2ospekbyy5y
-      '@mui/material': 5.10.6_g6p6knjyjrjltwufjb7cltiueu
-      '@rainbow-me/rainbowkit': 0.6.1_aninonh25swlvnwhsddvn2g45q
-      '@rainbow-me/rainbowkit-siwe-next-auth': 0.1.3_hjdlvaob734zhfrmmyk7vlwx4q
-      '@tanstack/react-query': 4.6.0_xrqomain73plncaatc7xzilvwu
-      '@tanstack/react-query-devtools': 4.6.0_35w334xqtbzboqulr5pz522esm
-=======
       '@emotion/react': 11.10.4_ikukbqecnqq7x4vxmntocr3m3m
       '@emotion/styled': 11.10.4_dwvcokn2latk5o5nkyc5xnwbay
       '@mui/material': 5.10.6_z3anqdnsksrxkpmauxm24cpruu
@@ -81,8 +73,8 @@ importers:
       '@rainbow-me/rainbowkit-siwe-next-auth': 0.1.3_dm7zd6zddm7y2iol6y775c2uty
       '@tanstack/react-query': 4.6.0_dt2nlze5ntv2tpdssuoxltfoli
       '@tanstack/react-query-devtools': 4.6.0_xgqdmcumts67cibbpz4pvjvcuu
->>>>>>> 7ac030f (rules insertion in apps/web)
       '@types/eslint': 8.4.6
+      abitype: 0.1.3_typescript@4.8.3
       database: link:../../packages/database
       ethers: 5.7.1
       internal-common: link:../../packages/internal-common
@@ -4186,6 +4178,15 @@ packages:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
     dev: true
 
+  /abitype/0.1.3_typescript@4.8.3:
+    resolution: {integrity: sha512-gK5Ve2Sgn27YyATib1P7TgxqQ2wtDJwD4U5qwUkBYhQYKU198oPkuF31cMCMpbqr4ZiDxxnrTPRm0KJwOddymA==}
+    engines: {node: '>=16', pnpm: '>=7'}
+    peerDependencies:
+      typescript: '>=4.7.4'
+    dependencies:
+      typescript: 4.8.3
+    dev: false
+
   /abort-controller/3.0.0:
     resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}
     engines: {node: '>=6.5'}
@@ -5820,7 +5821,7 @@ packages:
       eslint: 8.23.1
       eslint-import-resolver-node: 0.3.6
       eslint-import-resolver-typescript: 2.7.1_hdzsmr7kawaomymueo2tso6fjq
-      eslint-plugin-import: 2.26.0_6r44hdgvdiqbnekattsi42eeia
+      eslint-plugin-import: 2.26.0_eslint@8.23.1
       eslint-plugin-jsx-a11y: 6.6.1_eslint@8.23.1
       eslint-plugin-react: 7.31.8_eslint@8.23.1
       eslint-plugin-react-hooks: 4.6.0_eslint@8.23.1
@@ -5866,7 +5867,7 @@ packages:
     dependencies:
       debug: 4.3.4
       eslint: 8.23.1
-      eslint-plugin-import: 2.26.0_6r44hdgvdiqbnekattsi42eeia
+      eslint-plugin-import: 2.26.0_eslint@8.23.1
       glob: 7.2.3
       is-glob: 4.0.3
       resolve: 1.22.1
@@ -5875,7 +5876,7 @@ packages:
       - supports-color
     dev: false
 
-  /eslint-module-utils/2.7.4_ssuof5somrshypivkj4dxrg5tm:
+  /eslint-module-utils/2.7.4_oxfrjumrtiktpkw7r2zaom7f74:
     resolution: {integrity: sha512-j4GT+rqzCoRKHwURX7pddtIPGySnX9Si/cgMI5ztrcqOPtk5dDEeZ34CQVPphnqkJytlc97Vuk05Um2mJ3gEQA==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -5896,16 +5897,14 @@ packages:
       eslint-import-resolver-webpack:
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.37.0_irgkl5vooow2ydyo6aokmferha
       debug: 3.2.7
       eslint: 8.23.1
       eslint-import-resolver-node: 0.3.6
-      eslint-import-resolver-typescript: 2.7.1_hdzsmr7kawaomymueo2tso6fjq
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /eslint-plugin-import/2.26.0_6r44hdgvdiqbnekattsi42eeia:
+  /eslint-plugin-import/2.26.0_eslint@8.23.1:
     resolution: {integrity: sha512-hYfi3FXaM8WPLf4S1cikh/r4IxnO6zrhZbEGz2b660EJRbuxgpDS5gkCuYgGWg2xxh2rBuIr4Pvhve/7c31koA==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -5915,14 +5914,13 @@ packages:
       '@typescript-eslint/parser':
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.37.0_irgkl5vooow2ydyo6aokmferha
       array-includes: 3.1.5
       array.prototype.flat: 1.3.0
       debug: 2.6.9
       doctrine: 2.1.0
       eslint: 8.23.1
       eslint-import-resolver-node: 0.3.6
-      eslint-module-utils: 2.7.4_ssuof5somrshypivkj4dxrg5tm
+      eslint-module-utils: 2.7.4_oxfrjumrtiktpkw7r2zaom7f74
       has: 1.0.3
       is-core-module: 2.10.0
       is-glob: 4.0.3

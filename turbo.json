@@ -23,7 +23,8 @@
         "NEXTAUTH_SECRET",
         "ALCHEMY_API_KEY",
         "NEXT_PUBLIC_ENABLE_TESTNETS",
-        "VERCEL_URL"
+        "VERCEL_URL",
+        "EXECUTION_WALLET_ADDRESS"
       ]
     },
     "database#dev": {

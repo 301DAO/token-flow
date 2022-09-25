@@ -86,7 +86,7 @@ function SequenceTrigger() {
             <div className="flex flex-row items-center min-w-full">
               <InputLabel id="trigger-select-label">When</InputLabel>
               <Select
-                className='w-72'
+                className="w-72"
                 labelId="trigger-select-label"
                 id="trigger-select"
                 value={sandboxFlowData.trigger ? sandboxFlowData.trigger.triggerType : 'DEFAULT'}
@@ -115,18 +115,18 @@ function SequenceTrigger() {
               </Select>
 
               {sandboxFlowData.trigger && (
-                <div className='flex flex-row-reverse items-center'>
+                <div className="flex flex-row-reverse items-center">
                   <button
-                    className='rounded-lg shadow p-2 my-2 ml-6 bg-neutral-100 hover:bg-neutral-200'
+                    className="rounded-lg shadow p-2 my-2 ml-6 bg-neutral-100 hover:bg-neutral-200"
                     onClick={() => setShowEditModal(true)}
                   >
-                    <img src='/edit-icon.svg' className='h-6 w-6' />
+                    <img src="/edit-icon.svg" className="h-6 w-6" />
                   </button>
                 </div>
               )}
             </div>
 
-            <div className='p-6'></div>
+            <div className="p-6"></div>
 
             <VerbalizeTrigger />
 
@@ -145,7 +145,10 @@ function SequenceTrigger() {
                 <EditTrigger triggerType={sandboxFlowData.trigger?.triggerType} />
               </DialogContent>
               <DialogActions>
-                <button className="bg-green-200 hover:bg-green-300 rounded-lg m-2 p-2" onClick={() => setShowEditModal(false)}>
+                <button
+                  className="bg-green-200 hover:bg-green-300 rounded-lg m-2 p-2"
+                  onClick={() => setShowEditModal(false)}
+                >
                   <img src="diskette.svg" className="h-6 w-6" />
                 </button>
               </DialogActions>

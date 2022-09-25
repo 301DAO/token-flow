@@ -3,7 +3,6 @@ import { MoneyStrategy, MoneyStrategyType } from 'internal-common';
 import { ddb } from 'database';
 import { IRule } from 'database';
 
-
 const client = new Client();
 
 const data = [];
@@ -41,7 +40,7 @@ const watchingAddress = '0xDa2A186755c05D4367Bba77a2e763D31936698b4';
 const refreshDB = async () => {
   const rules: IRule[] = await ddb.rule.getAllRules();
   console.log(rules);
-}
+};
 
 const main = async () => {
   const block = await client.latestBlock();

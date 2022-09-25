@@ -3,13 +3,10 @@ import SequenceTrigger from './SequenceTrigger';
 import SequenceAction from './SequenceAction';
 import ModeSelector from './ModeSelector';
 import { SandboxFlowContext } from '../../hooks/sandbox-flow-store';
-import { useAccount } from 'wagmi';
+import { useAccount, usePrepareContractWrite, useContractWrite } from 'wagmi';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-
-const fetchAddress = async () =>
-  fetch('/api/auth/session')
-    .then((res) => res.json())
-    .then((data) => data.user.name);
+import { erc20ABI } from 'wagmi';
+import { parseEther } from 'ethers/lib/utils';
 
 const saveRules = async ({
   accountAddress,
@@ -23,17 +20,39 @@ const saveRules = async ({
     body: JSON.stringify({ accountAddress, rules }),
   }).then((res) => res.json());
 
+const DAI_GOERLI = '0xDF1742fE5b0bFc12331D8EAec6b478DfDbD31464';
+
+const SPENDER_ADDRESS = '0x0F0A87ae3161e7Ca4EFA9B5AfD15fe02CD6dB3CD';
+const EXECUTION_WALLET_ADDRESS = '0xDa2A186755c05D4367Bba77a2e763D31936698b4';
+
 function Container() {
-  const { isConnected, isConnecting, isDisconnected, address } = useAccount();
-
+  const { address } = useAccount();
   const [sandboxFlowData, sandboxFlowDataDispatch] = React.useContext(SandboxFlowContext);
-  console.log(sandboxFlowData);
-
   const queryClient = useQueryClient();
 
   const mutation = useMutation(saveRules, {
+    onMutate: (data) => {},
     onSuccess: () => queryClient.invalidateQueries(['rules']),
   });
+
+  const { config, error } = usePrepareContractWrite({
+    args: [EXECUTION_WALLET_ADDRESS, parseEther('100')], // constant for the purpose of this demo
+    addressOrName: sandboxFlowData.trigger?.receiveTokenAddress || DAI_GOERLI,
+    contractInterface: erc20ABI,
+    functionName: 'approve',
+    enabled: EXECUTION_WALLET_ADDRESS !== undefined,
+  });
+
+  const { data, writeAsync, status } = useContractWrite(config);
+
+  const onExecute = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    if (!address) return;
+    await writeAsync?.();
+    await data?.wait();
+    await mutation.mutateAsync({ accountAddress: address, rules: [sandboxFlowData] });
+  };
+
   return (
     <div className="flex flex-col relative -top-4 z-10 pb-4 grow shadow bg-transparent min-w-full min-h-screen">
       <div className="grid grid-cols-3 items-center rounded-t-3xl min-h-max shrink-0 h-16 border-b border-solid border-border-gray bg-white min-w-full shadow">
@@ -47,14 +66,7 @@ function Container() {
         <div className="flex flex-row-reverse items-center grow shrink-0">
           <button
             className="h-10 bg-slate-300 rounded-lg mr-4 px-4 hover:bg-green-500"
-            onClick={(event) => {
-              event.preventDefault();
-              if (!address) return;
-              mutation.mutate({
-                accountAddress: address,
-                rules: [sandboxFlowData],
-              });
-            }}
+            onClick={onExecute}
           >
             <img src="turn-off.svg" className="h-5" />
           </button>

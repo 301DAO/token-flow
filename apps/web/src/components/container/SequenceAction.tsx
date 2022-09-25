@@ -7,7 +7,9 @@ import EditActionModal from './actions/EditActionModal';
 function SequenceAction(props: {}) {
   const [sandboxFlowData, sandboxFlowDataDispatch] = React.useContext(SandboxFlowContext);
   const [showEditModal, setShowEditModal] = React.useState(false);
-  const [currentDisplayActionIndex, setCurrentDisplayActionIndex] = React.useState<number | undefined>(undefined);
+  const [currentDisplayActionIndex, setCurrentDisplayActionIndex] = React.useState<
+    number | undefined
+  >(undefined);
 
   if (sandboxFlowData.accountAddress === undefined || sandboxFlowData.trigger === undefined) {
     return (
@@ -16,7 +18,9 @@ function SequenceAction(props: {}) {
           <p className="text-sm font-bold text-gray-500">Actions</p>
           <div className="flex flex-col items-center">
             <div className="flex flex-row items-center">
-              <p className='text-sm text-rose-800 mt-10'>Connect wallet or configure a trigger first</p>
+              <p className="text-sm text-rose-800 mt-10">
+                Connect wallet or configure a trigger first
+              </p>
             </div>
           </div>
         </div>
@@ -34,13 +38,13 @@ function SequenceAction(props: {}) {
               <p className="text-xs text-gray-500 grow-[100]">{action.actionType}</p>
 
               <button
-                className='rounded-lg shadow p-2 m-2 bg-neutral-100 hover:bg-neutral-200'
+                className="rounded-lg shadow p-2 m-2 bg-neutral-100 hover:bg-neutral-200"
                 onClick={() => {
                   setCurrentDisplayActionIndex(index);
                   setShowEditModal(true);
                 }}
               >
-                <img src='/edit-icon.svg' className='h-4 w-4' />
+                <img src="/edit-icon.svg" className="h-4 w-4" />
               </button>
               <button
                 className="m-2 p-2 bg-red-300 rounded-lg shadow hover:bg-red-400"
@@ -50,21 +54,31 @@ function SequenceAction(props: {}) {
                   setShowEditModal(false);
                 }}
               >
-                <img src='/garbage-bin-icon.svg' className='h-4 w-4' />
+                <img src="/garbage-bin-icon.svg" className="h-4 w-4" />
               </button>
             </div>
           );
         })}
         {/* limiting actions to only two */}
-        {sandboxFlowData.actions.length < 2 && <div className="flex flex-col items-center">
-          <Button onClick={() => {
-            setCurrentDisplayActionIndex(undefined);
-            setShowEditModal(true);
-          }}>Add Action</Button>
-        </div>}
+        {sandboxFlowData.actions.length < 2 && (
+          <div className="flex flex-col items-center">
+            <Button
+              onClick={() => {
+                setCurrentDisplayActionIndex(undefined);
+                setShowEditModal(true);
+              }}
+            >
+              Add Action
+            </Button>
+          </div>
+        )}
       </div>
 
-      <EditActionModal showEditModal={showEditModal} setShowEditModal={setShowEditModal} actionIndex={currentDisplayActionIndex} />
+      <EditActionModal
+        showEditModal={showEditModal}
+        setShowEditModal={setShowEditModal}
+        actionIndex={currentDisplayActionIndex}
+      />
     </div>
   );
 }
