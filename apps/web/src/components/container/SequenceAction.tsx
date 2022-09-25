@@ -31,16 +31,27 @@ function SequenceAction(props: {}) {
         {sandboxFlowData.actions.map((action: ActionBaseModel, index) => {
           return (
             <div className="flex flex-row items-center mb-4" key={index}>
-              <p className="text-xs text-gray-500">{action.actionType}</p>
-              <Button onClick={() => {
-                setCurrentDisplayActionIndex(index);
-                setShowEditModal(true);
-              }}>Edit</Button>
-              <Button onClick={() => {
-                sandboxFlowDataDispatch({ type: 'REMOVE_ACTION', index });
-                setCurrentDisplayActionIndex(undefined);
-                setShowEditModal(false);
-              }}>Remove</Button>
+              <p className="text-xs text-gray-500 grow-[100]">{action.actionType}</p>
+
+              <button
+                className='rounded-lg shadow p-2 m-2 bg-neutral-100 hover:bg-neutral-200'
+                onClick={() => {
+                  setCurrentDisplayActionIndex(index);
+                  setShowEditModal(true);
+                }}
+              >
+                <img src='/edit-icon.svg' className='h-4 w-4' />
+              </button>
+              <button
+                className="m-2 p-2 bg-red-300 rounded-lg shadow hover:bg-red-400"
+                onClick={() => {
+                  sandboxFlowDataDispatch({ type: 'REMOVE_ACTION', index });
+                  setCurrentDisplayActionIndex(undefined);
+                  setShowEditModal(false);
+                }}
+              >
+                <img src='/garbage-bin-icon.svg' className='h-4 w-4' />
+              </button>
             </div>
           );
         })}

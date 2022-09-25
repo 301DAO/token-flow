@@ -63,9 +63,14 @@ const AlertActionEdit = function (props: AlertActionEditProps) {
               }}
             />
             <div className='flex flex-row-reverse mt-2'>
-              <Button variant='outlined' color='error' size='small' onClick={() => {
-                setStrategies(strategies.filter((_, i) => i !== index));
-              }}>Remove</Button>
+              <button
+                className="p-2 bg-red-300 rounded-lg shadow hover:bg-red-400"
+                onClick={() => {
+                  setStrategies(strategies.filter((_, i) => i !== index));
+                }}
+              >
+                <img src='/garbage-bin-icon.svg' className='h-4 w-4' />
+              </button>
             </div>
           </div>;
         })}

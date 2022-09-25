@@ -33,7 +33,7 @@ const EditActionModal = function ({ showEditModal, setShowEditModal, actionIndex
   return <Dialog
     PaperProps={{
       sx: {
-        height: "85%",
+        height: "95%",
         minWidth: '48%'
       }
     }}
@@ -115,29 +115,26 @@ const EditActionModal = function ({ showEditModal, setShowEditModal, actionIndex
       </FormControl>
     </DialogContent>
     <DialogActions>
-      <Button
-        onClick={() => {
-          if (action) {
-            setShowEditModal(false);
-            if (actionIndex !== undefined) {
-              sandboxFlowDataDispatch({
-                type: 'EDIT_ACTION',
-                payload: action,
-                index: actionIndex
-              });
-            } else {
-              sandboxFlowDataDispatch({
-                type: 'ADD_ACTION',
-                payload: action
-              });
-            }
-            
+
+      <button className="bg-green-200 hover:bg-green-300 rounded-lg m-2 p-2" onClick={() => {
+        if (action) {
+          setShowEditModal(false);
+          if (actionIndex !== undefined) {
+            sandboxFlowDataDispatch({
+              type: 'EDIT_ACTION',
+              payload: action,
+              index: actionIndex
+            });
+          } else {
+            sandboxFlowDataDispatch({
+              type: 'ADD_ACTION',
+              payload: action
+            });
           }
-        }}
-        autoFocus
-      >
-        Save
-      </Button>
+        }
+      }}>
+        <img src="diskette.svg" className="h-6 w-6" />
+      </button>
     </DialogActions>
   </Dialog>;
 };

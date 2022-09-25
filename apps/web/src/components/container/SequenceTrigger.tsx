@@ -49,7 +49,7 @@ function VerbalizeTrigger() {
               ? `${evaluator.toLowerCase().replaceAll('_', ' ')} ${compareThreshold} token of `
               : ''}
             {receiveTokenSymbol}
-            {receiveFrom ? ` from ${shortenString(receiveFrom, 6)}` : ''}
+            {receiveFrom ? ` from ${shortenString(receiveFrom, 6)}` : ''}.
           </p>
         );
       }
@@ -83,41 +83,51 @@ function SequenceTrigger() {
       <div className="flex flex-col ml-3 mt-3">
         <p className="text-sm font-bold text-gray-500 mb-4">Trigger</p>
         <div className="flex flex-col items-center">
-          <FormControl className="w-60">
-            <InputLabel id="trigger-select-label">When</InputLabel>
-            <Select
-              labelId="trigger-select-label"
-              id="trigger-select"
-              value={sandboxFlowData.trigger ? sandboxFlowData.trigger.triggerType : 'DEFAULT'}
-              defaultValue="DEFAULT"
-              label="Trigger"
-              onChange={(event) => {
-                if (event.target.value !== 'DEFAULT') {
-                  sandboxFlowDataDispatch({
-                    type: 'SET_TRIGGER',
-                    payload: { triggerType: event.target.value as TriggerType },
-                  });
-                }
-                setShowEditModal(true);
-              }}
-            >
-              <MenuItem value="DEFAULT" disabled>
-                {' '}
-              </MenuItem>
-              <MenuItem value={TriggerType.RECEIVE_FUNDS}>wallet receiving funds...</MenuItem>
-              <MenuItem value={TriggerType.AMM_LP_LIQUIDITY_THRESHOLD} disabled>
-                Uniswap LP TVL thresholds...
-              </MenuItem>
-              <MenuItem value={TriggerType.AMM_LP_PRICE} disabled>
-                Uniswap LP prices...
-              </MenuItem>
-            </Select>
+          <FormControl>
+            <div className="flex flex-row items-center min-w-full">
+              <InputLabel id="trigger-select-label">When</InputLabel>
+              <Select
+                className='w-72'
+                labelId="trigger-select-label"
+                id="trigger-select"
+                value={sandboxFlowData.trigger ? sandboxFlowData.trigger.triggerType : 'DEFAULT'}
+                defaultValue="DEFAULT"
+                label="Trigger"
+                onChange={(event) => {
+                  if (event.target.value !== 'DEFAULT') {
+                    sandboxFlowDataDispatch({
+                      type: 'SET_TRIGGER',
+                      payload: { triggerType: event.target.value as TriggerType },
+                    });
+                  }
+                  setShowEditModal(true);
+                }}
+              >
+                <MenuItem value="DEFAULT" disabled>
+                  {' '}
+                </MenuItem>
+                <MenuItem value={TriggerType.RECEIVE_FUNDS}>wallet receiving funds...</MenuItem>
+                <MenuItem value={TriggerType.AMM_LP_LIQUIDITY_THRESHOLD} disabled>
+                  Uniswap LP TVL thresholds...
+                </MenuItem>
+                <MenuItem value={TriggerType.AMM_LP_PRICE} disabled>
+                  Uniswap LP prices...
+                </MenuItem>
+              </Select>
 
-            {sandboxFlowData.trigger && (
-              <Button onClick={() => setShowEditModal(true)} autoFocus>
-                🖌️ Edit
-              </Button>
-            )}
+              {sandboxFlowData.trigger && (
+                <div className='flex flex-row-reverse items-center'>
+                  <button
+                    className='rounded-lg shadow p-2 my-2 ml-6 bg-neutral-100 hover:bg-neutral-200'
+                    onClick={() => setShowEditModal(true)}
+                  >
+                    <img src='/edit-icon.svg' className='h-6 w-6' />
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <div className='p-6'></div>
 
             <VerbalizeTrigger />
 
@@ -136,9 +146,9 @@ function SequenceTrigger() {
                 <EditTrigger triggerType={sandboxFlowData.trigger?.triggerType} />
               </DialogContent>
               <DialogActions>
-                <Button onClick={() => setShowEditModal(false)} autoFocus>
-                  Looks good!
-                </Button>
+                <button className="bg-green-200 hover:bg-green-300 rounded-lg m-2 p-2" onClick={() => setShowEditModal(false)}>
+                  <img src="diskette.svg" className="h-6 w-6" />
+                </button>
               </DialogActions>
             </Dialog>
           </FormControl>
