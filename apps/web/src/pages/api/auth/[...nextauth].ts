@@ -24,9 +24,8 @@ export function getAuthOptions(req: IncomingMessage): NextAuthOptions {
         try {
           const siwe = new SiweMessage(JSON.parse(credentials?.message || '{}'));
 
-          const nextAuthUrl =
-            process.env.NEXTAUTH_URL ||
-            (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null);
+          const nextAuthUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : process.env.NEXTAUTH_URL;
+
           if (!nextAuthUrl) {
             return null;
           }
