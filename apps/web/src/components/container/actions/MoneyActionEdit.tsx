@@ -61,7 +61,7 @@ const MoneyActionEdit = function (props: MoneyActionEditProps) {
                   onChange={(event) => {
                     setStrategies(strategies.map((strat, strategyIndex) => {
                       if (strategyIndex === index) {
-                        return { ...strat, destinationPath: event.target.value };
+                        return { ...strat, destinationAddress: event.target.value };
                       }
                       return strat;
                     }));
