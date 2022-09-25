@@ -1,8 +1,12 @@
+import * as React from 'react';
 import SequenceTrigger from './SequenceTrigger';
 import SequenceAction from './SequenceAction';
 import ModeSelector from './ModeSelector';
+import { SandboxFlowContext } from '../../hooks/sandbox-flow-store';
 
 function Container() {
+  const [sandboxFlowData, sandboxFlowDataDispatch] = React.useContext(SandboxFlowContext);
+
   return (
     <div className="flex flex-col relative -top-4 z-10 pb-4 grow shadow bg-transparent min-w-full min-h-screen">
       <div className="grid grid-cols-3 items-center rounded-t-3xl min-h-max shrink-0 h-16 border-b border-solid border-border-gray bg-white min-w-full shadow">
@@ -14,7 +18,7 @@ function Container() {
           <ModeSelector selected="editor" />
         </div>
         <div className="flex flex-row-reverse items-center grow shrink-0">
-          <button className="h-10 bg-slate-300 rounded-lg mr-4 px-4">
+          <button className="h-10 bg-slate-300 rounded-lg mr-4 px-4 hover:bg-green-500">
             <img src="turn-off.svg" className="h-5" />
           </button>
           <button className="h-10 bg-slate-300 rounded-lg mr-4 px-4">
