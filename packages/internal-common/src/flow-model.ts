@@ -3,12 +3,11 @@ import { ActionBaseModel } from './action-model';
 import { ChainId } from './constants/networks';
 
 export interface FlowModel {
-  accountAddress: string;
-  chainId: ChainId;
-  trigger: TriggerModel;
+  accountAddress?: string;
+  chainId?: ChainId;
+  trigger?: TriggerModel;
   actions: ActionBaseModel[];
-  alertActionModel: ActionBaseModel;
-  moneyActionModel: ActionBaseModel;
+
   // potentially can add more metadata here
   // such as name, description, created time, modified time, etc
 }

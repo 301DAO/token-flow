@@ -12,12 +12,13 @@ export enum TriggerType {
 
 export interface TriggerModel {
   triggerType: TriggerType;
+
   // 'RECEIVE_FUNDS' trigger
-  receiveFrom: string;
-  receiveTokenAddress: string;
-  receiveTokenDecimal: number;
-  receiveTokenSymbol: string;
-  evaluator: Evaluator;
+  receiveFrom?: string;
+  receiveTokenAddress?: string;
+  receiveTokenDecimal?: number;
+  receiveTokenSymbol?: string;
+  evaluator?: Evaluator;
   compareThreshold?: number;
 
   // 'AMM_LP_LIQUIDITY_THRESHOLD' trigger

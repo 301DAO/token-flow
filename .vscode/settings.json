@@ -1,4 +1,27 @@
 {
   "typescript.disableAutomaticTypeAcquisition": true,
   "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.tokenColorCustomizations": {
+    "[Tokyo Night]": {
+      "comments": "#7f7f7f",
+      "textMateRules": [
+        {
+          "scope": [
+            "comment",
+            "meta.var.expr storage.type",
+            "keyword.control.flow",
+            "keyword.control.return",
+            "meta.directive.vue punctuation.separator.key-value.html",
+            "meta.directive.vue entity.other.attribute-name.html",
+            "tag.decorator.js entity.name.tag.js",
+            "tag.decorator.js punctuation.definition.tag.js",
+            "storage.modifier"
+          ],
+          "settings": {}
+        }
+      ]
+    },
+    "comments": "",
+    "textMateRules": []
+  },
 }
