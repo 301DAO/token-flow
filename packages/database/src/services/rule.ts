@@ -9,13 +9,21 @@ export async function createRules({
   rules: JSONObject[];
 }): Promise<IRule> {
   try {
-    const newRules = await ruleModel.create({
+    const newRules = new ruleModel({
       id: accountAddress,
       rules: rules.map(rule => ({
         id: uniqueID(),
         rule: rule,
       })),
     });
+    await newRules.save();
+    // const newRules = await ruleModel.create({
+    //   id: accountAddress,
+    //   rules: rules.map(rule => ({
+    //     id: uniqueID(),
+    //     rule: rule,
+    //   })),
+    // });
     return newRules;
   } catch (error) {
     console.log('error in createRules(): ', {

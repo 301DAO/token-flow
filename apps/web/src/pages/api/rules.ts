@@ -9,8 +9,9 @@ import { validEthAddress } from '../../utils/string-validators';
 export default async function handler(request: NextApiRequest, response: NextApiResponse) {
   switch (request.method) {
     case 'POST':
-      const body = request.body as { accountAddress: string; rules: Array<any> };
-      if (!body || !body.rules || !body.accountAddress || !validEthAddress(body.accountAddress)) {
+      const body = JSON.parse(request.body) as { accountAddress: string; rules: Array<any> };
+      console.log(typeof body);
+      if (!body || body.rules.length === 0 || body.accountAddress.length !== 42) {
         return response.status(400).json({ error: 'Invalid request body' });
       }
       const newRules = await ddb.rule.createRules({

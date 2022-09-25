@@ -3,10 +3,37 @@ import SequenceTrigger from './SequenceTrigger';
 import SequenceAction from './SequenceAction';
 import ModeSelector from './ModeSelector';
 import { SandboxFlowContext } from '../../hooks/sandbox-flow-store';
+import { useAccount } from 'wagmi';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+const fetchAddress = async () =>
+  fetch('/api/auth/session')
+    .then((res) => res.json())
+    .then((data) => data.user.name);
+
+const saveRules = async ({
+  accountAddress,
+  rules,
+}: {
+  accountAddress: string;
+  rules: Array<any>;
+}) =>
+  fetch('/api/rules', {
+    method: 'POST',
+    body: JSON.stringify({ accountAddress, rules }),
+  }).then((res) => res.json());
 
 function Container() {
-  const [sandboxFlowData, sandboxFlowDataDispatch] = React.useContext(SandboxFlowContext);
+  const { isConnected, isConnecting, isDisconnected, address } = useAccount();
 
+  const [sandboxFlowData, sandboxFlowDataDispatch] = React.useContext(SandboxFlowContext);
+  console.log(sandboxFlowData);
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(saveRules, {
+    onSuccess: () => queryClient.invalidateQueries(['rules']),
+  });
   return (
     <div className="flex flex-col relative -top-4 z-10 pb-4 grow shadow bg-transparent min-w-full min-h-screen">
       <div className="grid grid-cols-3 items-center rounded-t-3xl min-h-max shrink-0 h-16 border-b border-solid border-border-gray bg-white min-w-full shadow">
@@ -18,7 +45,17 @@ function Container() {
           <ModeSelector selected="editor" />
         </div>
         <div className="flex flex-row-reverse items-center grow shrink-0">
-          <button className="h-10 bg-slate-300 rounded-lg mr-4 px-4 hover:bg-green-500">
+          <button
+            className="h-10 bg-slate-300 rounded-lg mr-4 px-4 hover:bg-green-500"
+            onClick={(event) => {
+              event.preventDefault();
+              if (!address) return;
+              mutation.mutate({
+                accountAddress: address,
+                rules: [sandboxFlowData],
+              });
+            }}
+          >
             <img src="turn-off.svg" className="h-5" />
           </button>
           <button className="h-10 bg-slate-300 rounded-lg mr-4 px-4">
