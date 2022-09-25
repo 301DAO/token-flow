@@ -11,6 +11,9 @@ const initialSandboxFlowData: FlowModel = {
 type Action =
   | { type: 'SET_TRIGGER'; payload: TriggerModel }
   | { type: 'SET_ACTIONS'; payload: ActionBaseModel[] }
+  | { type: 'ADD_ACTION'; payload: ActionBaseModel }
+  | { type: 'EDIT_ACTION'; payload: ActionBaseModel, index: number }
+  | { type: 'REMOVE_ACTION', index: number }
   | { type: 'SET_ACCOUNT_ADDRESS_CHAIN_ID'; payload?: { accountAddress: string; chainId: number } };
 
 const sandboxFlowReducer = (state: FlowModel, action: Action): FlowModel => {
@@ -19,6 +22,17 @@ const sandboxFlowReducer = (state: FlowModel, action: Action): FlowModel => {
       return { ...state, trigger: action.payload };
     case 'SET_ACTIONS':
       return { ...state, actions: action.payload };
+    case 'ADD_ACTION':
+      return { ...state, actions: [...state.actions, action.payload] };
+    case 'EDIT_ACTION':
+      return { ...state, actions: state.actions.map((existingAction, index) => {
+        if (index === action.index) {
+          return action.payload;
+        }
+        return existingAction;
+      }) };
+    case 'REMOVE_ACTION':
+      return { ...state, actions: state.actions.filter((_, index) => index !== action.index) };
     case 'SET_ACCOUNT_ADDRESS_CHAIN_ID':
       return {
         ...state,

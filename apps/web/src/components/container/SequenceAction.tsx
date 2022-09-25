@@ -2,9 +2,12 @@ import { Button } from '@mui/material';
 import * as React from 'react';
 import { SandboxFlowContext } from '../../hooks/sandbox-flow-store';
 import { ActionBaseModel } from 'internal-common';
+import AddActionModal from './actions/EditActionModal';
 
 function SequenceAction(props: {}) {
   const [sandboxFlowData, sandboxFlowDataDispatch] = React.useContext(SandboxFlowContext);
+  const [showEditModal, setShowEditModal] = React.useState(false);
+  const [currentDisplayActionIndex, setCurrentDisplayActionIndex] = React.useState<number | undefined>(undefined);
 
   if (sandboxFlowData.accountAddress === undefined) {
     return (
@@ -29,14 +32,28 @@ function SequenceAction(props: {}) {
           return (
             <div className="flex flex-row items-center mb-4" key={index}>
               <p className="text-xs text-gray-500">{action.actionType}</p>
+              <Button onClick={() => {
+                setCurrentDisplayActionIndex(index);
+                setShowEditModal(true);
+              }}>Edit</Button>
+              <Button onClick={() => {
+                sandboxFlowDataDispatch({ type: 'REMOVE_ACTION', index });
+                setCurrentDisplayActionIndex(undefined);
+                setShowEditModal(false);
+              }}>Remove</Button>
             </div>
           );
         })}
-        <div className="flex flex-col items-center">
-          <Button>➕ Add an action</Button>
-        </div>
-        {/* <p className='text-xs text-slate-700'>Setup multiple actions to execute after the event triggering</p> */}
+        {/* limiting actions to only two */}
+        {sandboxFlowData.actions.length < 2 && <div className="flex flex-col items-center">
+          <Button onClick={() => {
+            setCurrentDisplayActionIndex(undefined);
+            setShowEditModal(true);
+          }}>Add Action</Button>
+        </div>}
       </div>
+
+      <AddActionModal showEditModal={showEditModal} setShowEditModal={setShowEditModal} actionIndex={currentDisplayActionIndex} />
     </div>
   );
 }
