@@ -1,21 +1,9 @@
-/* eslint-disable turbo/no-undeclared-env-vars */
 import { IncomingMessage } from 'http';
 import { NextApiRequest, NextApiResponse } from 'next';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { getCsrfToken } from 'next-auth/react';
 import { SiweMessage } from 'siwe';
-// import { DynamoDBAdapter } from '@next-auth/dynamodb-adapter';
-// import { ddb } from 'database';
-// import type { DynamoDBClientConfig } from '@aws-sdk/client-dynamodb';
-
-const config = {
-  credentials: {
-    accessKeyId: process.env.NEXT_AUTH_AWS_ACCESS_KEY as string,
-    secretAccessKey: process.env.NEXT_AUTH_AWS_SECRET_KEY as string,
-  },
-  region: process.env.NEXT_AUTH_AWS_REGION,
-};
 
 export function getAuthOptions(req: IncomingMessage): NextAuthOptions {
   const providers = [
@@ -24,8 +12,10 @@ export function getAuthOptions(req: IncomingMessage): NextAuthOptions {
         try {
           const siwe = new SiweMessage(JSON.parse(credentials?.message || '{}'));
 
-          const nextAuthUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : process.env.NEXTAUTH_URL;
-
+          const nextAuthUrl = process.env.VERCEL_URL
+            ? `https://${process.env.VERCEL_URL}`
+            : process.env.NEXTAUTH_URL;
+          console.log({ nextAuthUrl });
           if (!nextAuthUrl) {
             return null;
           }
@@ -76,10 +66,7 @@ export function getAuthOptions(req: IncomingMessage): NextAuthOptions {
     // https://next-auth.js.org/configuration/providers/oauth
     providers,
     secret: process.env.NEXTAUTH_SECRET,
-    session: {
-      strategy: 'jwt',
-    },
-    // adapter: DynamoDBAdapter(config),
+    session: { strategy: 'jwt' },
   };
 }
 

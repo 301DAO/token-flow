@@ -10,7 +10,7 @@ import {
   wallet,
 } from '@rainbow-me/rainbowkit';
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { publicProvider } from 'wagmi/providers/public';
 import { SessionProvider } from 'next-auth/react';
 import {
@@ -22,8 +22,15 @@ import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [chain.goerli, chain.polygon, chain.optimism, chain.polygonMumbai],
-  [alchemyProvider({ apiKey: process.env.ALCHEMY_API_KEY }), publicProvider()]
+  [chain.goerli],
+  [
+    jsonRpcProvider({
+      rpc: (chain) => ({
+        http: process.env.ANKR_GOERLI_RPC_URL as string,
+      }),
+    }),
+    publicProvider(),
+  ]
 );
 
 const { wallets } = getDefaultWallets({

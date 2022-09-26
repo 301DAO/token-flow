@@ -21,6 +21,9 @@
       "env": [
         "NEXTAUTH_URL",
         "NEXTAUTH_SECRET",
+        "ANKR_GOERLI_RPC_URL",
+        "ANKR_GOERLI_WS_URL",
+        "NEXT_PUBLIC_ALCHEMY_API_KEY",
         "ALCHEMY_API_KEY",
         "NEXT_PUBLIC_ENABLE_TESTNETS",
         "VERCEL_URL",
