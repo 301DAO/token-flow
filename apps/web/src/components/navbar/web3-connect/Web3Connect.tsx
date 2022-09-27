@@ -19,7 +19,7 @@ function Web3Connect() {
         payload: { accountAddress: address, chainId: chain.id },
       });
     }
-  }, [address, isConnected]); // intentionally only running on mount (make sure it's only mounted once :))
+  }, [address, chain, isConnected, sandboxFlowDataDispatch]); // intentionally only running on mount (make sure it's only mounted once :))
 
   const [chainSelectPopoverVisible, setChainSelectPopoverVisible] = React.useState(false);
 

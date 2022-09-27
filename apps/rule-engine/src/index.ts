@@ -39,17 +39,17 @@ const exampleSwapStrategy: MoneyStrategy = {
 const watchingAddress = '0xDa2A186755c05D4367Bba77a2e763D31936698b4';
 
 const refreshDB = async () => {
-  const rules: IRule[] = await ddb.rule.getAllRules();
+  const rules = await ddb.rule.getAllRules();
   data = rules;
-}
+};
 
 (async () => {
   const client = new Client();
-  client.subscribeToBlocks((provider: ethers.providers.JsonRpcProvider) => async (block) => {
+  client.subscribeToBlocks((provider) => async (block) => {
     await refreshDB();
 
     // check if any rules get triggered in the latest block
-    await provider.subscribeToErc20Transfers();
+    // await provider.subscribeToErc20Transfers();
     const allTransactionsInBlock = await provider.getBlockWithTransactions(block);
     console.log(allTransactionsInBlock);
 

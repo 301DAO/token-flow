@@ -1,7 +1,7 @@
 import { NonceManager } from '@ethersproject/experimental/lib/nonce-manager';
 import { ethers, utils } from 'ethers';
-import erc20Abi from './abi/erc20.json' assert {type: "json"};
-import executionAbi from './abi/execution.json' assert {type: "json"};
+import erc20Abi from './abi/erc20.json' assert { type: 'json' };
+import executionAbi from './abi/execution.json' assert { type: 'json' };
 import { ChainId, IToken, MoneyStrategy, TOKENS } from 'internal-common';
 import { hexZeroPad } from 'ethers/lib/utils';
 
@@ -59,24 +59,31 @@ export class Client {
     );
   }
 
-  public subscribeToBlocks = (cb: (provider: ethers.providers.JsonRpcProvider) => (blockNumber: number) => Promise<void>) => {
+  public subscribeToBlocks = (
+    cb: (provider: ethers.providers.JsonRpcProvider) => (blockNumber: number) => Promise<void>
+  ) => {
     this._provider.on('block', cb(this._provider));
-  }
+  };
 
-  public subscribeToErc20Transfers = (token: IToken, fromAddress: string | undefined, toAddress: string | undefined, cb: (provider: ethers.providers.JsonRpcProvider) => (transfer: ethers.Event) => Promise<void>) => {
+  public subscribeToErc20Transfers = (
+    token: IToken,
+    fromAddress: string | undefined,
+    toAddress: string | undefined,
+    cb: (provider: ethers.providers.JsonRpcProvider) => (transfer: ethers.Event) => Promise<void>
+  ) => {
     const tokenContract = new ethers.Contract(token.addressMap[CHAIN_ID], erc20Abi, this._provider);
     tokenContract.on(
       {
         address: token.addressMap[CHAIN_ID],
         topics: [
-          utils.id("Transfer(address,address,uint256)"),
-          (fromAddress === undefined ? null : hexZeroPad(fromAddress, 32)) as string,
-          (toAddress === undefined ? null : hexZeroPad(toAddress, 32) as string),
-        ]
+          utils.id('Transfer(address,address,uint256)'),
+          ...(fromAddress ? hexZeroPad(fromAddress, 32) : []),
+          ...(toAddress ? hexZeroPad(toAddress, 32) : []),
+        ],
       },
       cb(this._provider)
     );
-  }
+  };
 
   public latestBlock = (): Promise<number> => {
     return this._provider.getBlockNumber();

@@ -24,11 +24,11 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 const { chains, provider, webSocketProvider } = configureChains(
   [chain.goerli],
   [
-    jsonRpcProvider({
-      rpc: (chain) => ({
-        http: process.env.ANKR_GOERLI_RPC_URL as string,
-      }),
-    }),
+    // jsonRpcProvider({
+    //   rpc: (chain) => ({
+    //     http: process.env.ANKR_GOERLI_RPC_URL as string,
+    //   }),
+    // }),
     publicProvider(),
   ]
 );
